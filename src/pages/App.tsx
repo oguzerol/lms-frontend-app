@@ -1,6 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../core/redux/rootReducer";
 
 function App() {
+  const count = useSelector((state: RootState) => state.auth);
+  console.log(count);
   return (
     <div className="App">
       <header className="App-header">

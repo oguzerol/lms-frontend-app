@@ -1,10 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../core/redux/rootReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAuth, setAuth } from "../core/redux/auth/authSlice";
 
 function App() {
-  const count = useSelector((state: RootState) => state.auth);
-  console.log(count);
+  const auth = useSelector(selectAuth);
+  const dispatch = useDispatch();
+
+  console.log(auth);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -19,6 +22,9 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={() => dispatch(setAuth({ id: 1, email: "asd" }))}>
+          test
+        </button>
       </header>
     </div>
   );

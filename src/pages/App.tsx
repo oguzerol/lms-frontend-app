@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAuth, setAuth } from "../core/redux/auth/authSlice";
+import { selectAuth, setAuth } from "../core/redux/auth";
 
 function App() {
   const auth = useSelector(selectAuth);

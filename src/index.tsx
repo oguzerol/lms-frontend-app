@@ -4,6 +4,9 @@ import { Provider } from "react-redux";
 import { store } from "./core/redux/store";
 import App from "./pages/App";
 import reportWebVitals from "./core/reportWebVitals";
+import configAxios from "./core/config/axios-config";
+
+configAxios(store);
 
 ReactDOM.render(
   <React.StrictMode>

@@ -9,7 +9,6 @@ interface Store {
 
 const configAxios = (store: Store) => {
   axios.defaults.baseURL = REACT_APP_API_BASE;
-  console.log(store);
 
   axios.interceptors.response.use(
     (response) => {

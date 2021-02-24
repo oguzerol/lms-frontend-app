@@ -9,7 +9,7 @@ const Root = () => {
   return (
     <Router>
       <Switch>
-        <AppRoute exact path={URL_HOME} component={App} />
+        <AppRoute exact path={URL_HOME} component={App} privateRoute />
         <AppRoute exact path={URL_LOGIN} component={Login} />
       </Switch>
     </Router>

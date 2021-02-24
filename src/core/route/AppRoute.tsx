@@ -1,4 +1,6 @@
 import { Route, Redirect, RouteComponentProps } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../redux/auth";
 
 import EmptyLayout from "../layouts/EmptyLayout";
 import { URL_LOGIN } from "./constants";
@@ -19,7 +21,8 @@ const AppRoute = ({
   exact = false,
   ...rest
 }: Props) => {
-  const [isLoading, isAuthenticated] = [false, false];
+  const auth = useSelector(selectAuth);
+  const { isAuthenticated, isLoading } = auth;
 
   const renderLayout = (props: RouteComponentProps) => (
     <Layout>

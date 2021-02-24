@@ -1,17 +1,22 @@
 import { useFormik } from "formik";
+import { useEffect } from "react";
 import axios from "axios";
-
+import { useHistory } from "react-router-dom";
 import * as yup from "yup";
+import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+
+import { API_LOGIN, URL_HOME, API_ME } from "../../core/route/constants";
+import { selectAuth, setAuth } from "../../core/redux/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 const validationSchema = yup.object({
   email: yup
@@ -39,9 +44,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = () => {
-  const router = "test";
-
   const classes = useStyles();
+  const history = useHistory();
+  const { isAuthenticated } = useSelector(selectAuth);
+
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -50,15 +58,28 @@ const Login = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        const response = await axios.post("/auth/login", {
+        const response = await axios.post(API_LOGIN, {
           email: values.email,
           password: values.password,
-        }); //handle API call to sign in here.
-        console.log("response");
-      } catch (err) {}
+        });
+        axios.defaults.headers.common.token = response.data;
+        localStorage.setItem("token", response.data);
+
+        axios.get(API_ME).then((res) => {
+          dispatch(setAuth(res.data));
+          history.replace(URL_HOME);
+        });
+      } catch (err) {
+        // TODO: handle errors
+      }
     },
   });
-  console.log("yee");
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.replace(URL_HOME);
+    }
+  }, [isAuthenticated, history]);
 
   return (
     <Container maxWidth="xs">
@@ -70,18 +91,24 @@ const Login = () => {
           Giriş Yap
         </Typography>
       </Box>
-      <form className={classes.form} onSubmit={formik.handleSubmit} noValidate>
+      <form
+        className={classes.form}
+        onSubmit={formik.handleSubmit}
+        noValidate
+        autoComplete="off"
+      >
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
               variant="outlined"
               required
+              autoFocus={true}
               fullWidth
               placeholder="Email adresinizi giriniz."
               id="email"
               label="E-mail Adresiniz"
               name="email"
-              autoComplete="new-password"
+              autoComplete="off"
               value={formik.values.email}
               onChange={formik.handleChange}
               error={formik.touched.email && Boolean(formik.errors.email)}

@@ -1,20 +1,25 @@
 import { Route, Redirect, RouteComponentProps } from "react-router-dom";
 
 import EmptyLayout from "../layouts/EmptyLayout";
+import { URL_LOGIN } from "./constants";
 
 type Props = {
   component: React.FC<RouteComponentProps>;
-  layout: React.FunctionComponent | typeof EmptyLayout;
-  privateRoute: Boolean;
+  path: String;
+  layout?: React.FunctionComponent | typeof EmptyLayout;
+  privateRoute?: Boolean;
+  exact?: Boolean;
 };
 
 const AppRoute = ({
   component: Component,
+  path,
   layout: Layout = EmptyLayout,
-  privateRoute,
+  privateRoute = false,
+  exact = false,
   ...rest
 }: Props) => {
-  const [isLoading, isAuthenticated] = [true, false];
+  const [isLoading, isAuthenticated] = [false, false];
 
   const renderLayout = (props: RouteComponentProps) => (
     <Layout>
@@ -27,21 +32,10 @@ const AppRoute = ({
       {...rest}
       render={(props) => {
         if (isLoading) {
-          return (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                flex: 1,
-                alignItems: "center",
-              }}
-            >
-              <div>...Loading</div>
-            </div>
-          );
+          return <div>...Loading</div>;
         }
         if (privateRoute && isAuthenticated === false) {
-          return <Redirect to="/login" />;
+          return <Redirect to={URL_LOGIN} />;
         }
         return renderLayout(props);
       }}

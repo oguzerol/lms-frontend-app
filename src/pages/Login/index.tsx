@@ -1,7 +1,6 @@
 import { useFormik } from "formik";
-import { useEffect } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
@@ -30,6 +29,12 @@ const validationSchema = yup.object({
 });
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
@@ -62,6 +67,7 @@ const Login = () => {
           email: values.email,
           password: values.password,
         });
+        // TODO: create handler funciton
         axios.defaults.headers.common.token = response.data;
         localStorage.setItem("token", response.data);
 
@@ -75,14 +81,9 @@ const Login = () => {
     },
   });
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      history.replace(URL_HOME);
-    }
-  }, [isAuthenticated, history]);
-
+  if (isAuthenticated) return <Redirect to={URL_HOME} />;
   return (
-    <Container maxWidth="xs">
+    <Container maxWidth="xs" className={classes.root}>
       <Box mb={3} display="flex" alignItems="center" flexDirection="column">
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -102,7 +103,6 @@ const Login = () => {
             <TextField
               variant="outlined"
               required
-              autoFocus={true}
               fullWidth
               placeholder="Email adresinizi giriniz."
               id="email"

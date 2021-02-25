@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { useMediaQuery } from "@material-ui/core";
-
-import { Sidebar, Topbar } from "./components";
+import Topbar from "./components/Topbar";
+import Sidebar from "./components/Sidebar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,7 +56,6 @@ const AppLayout = ({ children }: Props) => {
     >
       <Topbar onSidebarOpen={handleSidebarOpen} />
       <Sidebar
-        // TODO: check 001
         onClose={handleSidebarClose}
         open={shouldOpenSidebar}
         variant={isDesktop ? "persistent" : "temporary"}

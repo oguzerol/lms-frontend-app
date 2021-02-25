@@ -4,10 +4,10 @@ import { NavLink as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Drawer, Button, Box, Divider } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 
 import SidebarNav from "./components/SidebarNav";
+import { URL_HOME } from "../../../../route/constants";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -54,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
 type Props = {
   open: boolean;
   variant: "permanent" | "persistent" | "temporary" | undefined;
-  onClose: () => void; // TODO: check 001
-  className?: String;
+  onClose: () => void;
+  className?: string;
 };
 
 const Sidebar = (props: Props) => {
@@ -65,23 +65,27 @@ const Sidebar = (props: Props) => {
 
   const pages = [
     {
+      id: 0,
       title: "Dashboard",
-      href: "/sinav-merkezi",
+      href: URL_HOME,
       icon: <DashboardIcon />,
     },
     {
+      id: 1,
       title: "Sınavlarım",
       href: "/sinavlar",
-      icon: <ShoppingBasketIcon />,
+      icon: <DashboardIcon />,
     },
     {
+      id: 2,
       title: "Sonuçlarım",
       href: "/sonuclar",
-      icon: <ShoppingBasketIcon />,
+      icon: <DashboardIcon />,
     },
   ];
 
   return (
+    // ! STRICT MODE
     <Drawer
       anchor="left"
       classes={{ paper: classes.drawer }}

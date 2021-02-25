@@ -1,10 +1,10 @@
 // TODO; TSX, ref problem here
-import React, { forwardRef } from "react";
-import { NavLink as RouterLink } from "react-router-dom";
+import React from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import { List, ListItem, Button } from "@material-ui/core";
+import { List, ListItem } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "none",
     letterSpacing: 0,
     width: "100%",
+    color: theme.palette.primary.light,
     fontWeight: theme.typography.fontWeightMedium,
   },
   icon: {
@@ -38,31 +39,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomRouterLink = forwardRef((props, ref) => (
-  <div ref={ref} style={{ flexGrow: 1 }}>
-    <RouterLink {...props} />
-  </div>
-));
+type Page = {
+  id: number;
+  title: string;
+  href: string;
+  icon: React.ReactNode;
+};
 
-const SidebarNav = ({ pages, className, closeNav }) => {
+type Props = {
+  pages: Array<Page>;
+  className: string;
+  closeNav: () => void;
+};
+
+const SidebarNav = ({ pages, className, closeNav }: Props) => {
   const classes = useStyles();
+
+  const handleOnClick = () => {
+    closeNav();
+  };
 
   return (
     <List className={clsx(classes.root, className)}>
-      {pages.map((page) => (
-        <ListItem className={classes.item} disableGutters key={page.title}>
-          <Button
-            activeClassName={classes.active}
-            className={classes.button}
-            component={CustomRouterLink}
-            onClick={() => {
-              closeNav();
-            }}
+      {pages.map((page: Page) => (
+        <ListItem className={classes.item} disableGutters key={page.id}>
+          <NavLink
             to={page.href}
+            onClick={handleOnClick}
+            className={classes.button}
+            activeClassName={classes.active}
           >
             <div className={classes.icon}>{page.icon}</div>
             {page.title}
-          </Button>
+          </NavLink>
         </ListItem>
       ))}
     </List>

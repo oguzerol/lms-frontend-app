@@ -7,10 +7,10 @@ import { URL_LOGIN } from "./constants";
 
 type Props = {
   component: React.FC<RouteComponentProps>;
-  path: String;
+  path: string;
   layout?: React.FunctionComponent | typeof EmptyLayout;
-  privateRoute?: Boolean;
-  exact?: Boolean;
+  privateRoute?: boolean;
+  exact?: boolean;
 };
 
 const AppRoute = ({

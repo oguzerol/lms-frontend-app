@@ -9,8 +9,9 @@ import ChevronLefttIcon from "@material-ui/icons/ChevronLeft";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import { URL_HOME } from "../../../../route/constants";
+import HomeIcon from "@material-ui/icons/Home";
+import { NavLink } from "react-router-dom";
 
 type Props = {
   open: boolean;
@@ -51,8 +52,57 @@ const useStyles = makeStyles((theme: Theme) =>
       // necessary for content to be below app bar
       ...theme.mixins.toolbar,
     },
+    icon: {
+      width: 24,
+      height: 24,
+      display: "flex",
+      alignItems: "center",
+      marginRight: theme.spacing(1),
+    },
+    link: {
+      display: "flex",
+      alignItems: "center",
+      color: "inherit",
+      textDecoration: "none",
+    },
+    active: {
+      color: theme.palette.secondary.main,
+
+      fontWeight: theme.typography.fontWeightMedium,
+      "& .MuiListItemIcon-root": {
+        color: theme.palette.secondary.main,
+      },
+    },
   })
 );
+
+type Page = {
+  id: number;
+  title: string;
+  href: string;
+  icon: React.ReactNode;
+};
+
+const pages = [
+  {
+    id: 0,
+    title: "Dashboard",
+    href: URL_HOME,
+    icon: <HomeIcon />,
+  },
+  {
+    id: 1,
+    title: "Sınavlarım",
+    href: "/sinavlar",
+    icon: <HomeIcon />,
+  },
+  {
+    id: 2,
+    title: "Sonuçlarım",
+    href: "/sonuclar",
+    icon: <HomeIcon />,
+  },
+];
 
 const SideBar = ({ open, handleDrawerToggle, isSidebarOpen }: Props) => {
   const classes = useStyles();
@@ -79,23 +129,17 @@ const SideBar = ({ open, handleDrawerToggle, isSidebarOpen }: Props) => {
       </div>
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
+        {pages.map((page: Page) => (
+          <ListItem key={page.id}>
+            <NavLink
+              color="inherit"
+              to={page.href}
+              className={classes.link}
+              activeClassName={classes.active}
+            >
+              <ListItemIcon>{page.icon}</ListItemIcon>
+              <ListItemText primary={page.title} />
+            </NavLink>
           </ListItem>
         ))}
       </List>

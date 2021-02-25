@@ -26,7 +26,6 @@ const AppLayout = ({ children }: Props) => {
   const [open, setOpen] = useState(false);
 
   const handleDrawerToggle = () => {
-    console.log(open);
     setOpen(!open);
   };
 

@@ -1,7 +1,7 @@
 const white = "#FFFFFF";
 const black = "#000000";
 
-const palette = (type) => {
+const palette = (type: "dark" | "light" | undefined) => {
   if (type === "dark") {
     return {
       type,

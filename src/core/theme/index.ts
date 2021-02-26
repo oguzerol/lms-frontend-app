@@ -2,7 +2,9 @@ import { createMuiTheme } from "@material-ui/core";
 import palette from "./palette";
 import overrides from "./overrides";
 
-const theme = (type: "dark" | "light" | undefined) => {
+type Type = "dark" | "light" | undefined;
+
+const theme = (type: Type) => {
   return createMuiTheme({
     overrides,
     palette: palette(type),

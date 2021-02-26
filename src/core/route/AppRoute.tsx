@@ -4,6 +4,7 @@ import { selectAuth } from "../redux/auth";
 
 import EmptyLayout from "../layouts/EmptyLayout";
 import { URL_LOGIN } from "./constants";
+import Loading from "../../components/Loading";
 
 type Props = {
   component: React.FC<RouteComponentProps>;
@@ -35,7 +36,7 @@ const AppRoute = ({
       {...rest}
       render={(props) => {
         if (isLoading) {
-          return <div>...Loading</div>;
+          return <Loading type="pageLoad" />;
         }
         if (privateRoute && isAuthenticated === false) {
           return <Redirect to={URL_LOGIN} />;

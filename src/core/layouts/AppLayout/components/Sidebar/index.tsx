@@ -2,10 +2,6 @@ import clsx from "clsx";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLefttIcon from "@material-ui/icons/ChevronLeft";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -15,8 +11,6 @@ import { NavLink } from "react-router-dom";
 
 type Props = {
   open: boolean;
-  handleDrawerToggle: () => void;
-  isSidebarOpen: boolean;
 };
 
 const drawerWidth = 240;
@@ -29,14 +23,20 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerOpen: {
       width: drawerWidth,
-      marginTop: 67,
+      [theme.breakpoints.up("sm")]: {
+        marginTop: 67,
+      },
+      marginTop: 58,
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
     drawerClose: {
-      marginTop: 67,
+      [theme.breakpoints.up("sm")]: {
+        marginTop: 67,
+      },
+      marginTop: 58,
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -108,7 +108,7 @@ const pages = [
   },
 ];
 
-const SideBar = ({ open, handleDrawerToggle, isSidebarOpen }: Props) => {
+const SideBar = ({ open }: Props) => {
   const classes = useStyles();
 
   return (
@@ -126,12 +126,6 @@ const SideBar = ({ open, handleDrawerToggle, isSidebarOpen }: Props) => {
         }),
       }}
     >
-      <div className={classes.toolbar}>
-        <IconButton onClick={handleDrawerToggle}>
-          {isSidebarOpen ? <ChevronLefttIcon /> : <MenuIcon />}
-        </IconButton>
-      </div>
-      <Divider />
       <List>
         {pages.map((page: Page) => (
           <ListItem key={page.id}>

@@ -67,7 +67,6 @@ const Login = () => {
           email: values.email,
           password: values.password,
         });
-        // TODO: create handler funciton
         axios.defaults.headers.common.token = response.data;
         localStorage.setItem("token", response.data);
 

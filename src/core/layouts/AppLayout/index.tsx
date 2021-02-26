@@ -32,12 +32,8 @@ const AppLayout = ({ children }: Props) => {
 
   return (
     <div className={classes.root}>
-      <Topbar open={open} />
-      <SideBar
-        open={open}
-        handleDrawerToggle={handleDrawerToggle}
-        isSidebarOpen={open}
-      />
+      <Topbar open={open} handleDrawerToggle={handleDrawerToggle} />
+      <SideBar open={open} />
       <main className={classes.content}>{children}</main>
     </div>
   );

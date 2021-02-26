@@ -3,6 +3,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
 
 import { Switch } from "@material-ui/core";
 import InputIcon from "@material-ui/icons/Input";
@@ -28,17 +29,39 @@ const useStyles = makeStyles((theme: Theme) =>
     flexGrow: {
       flexGrow: 1,
     },
+    ydtLink: {
+      display: "flex",
+    },
     ydtLogo: {
       width: 90,
+      paddingLeft: theme.spacing(2),
+      height: "100%",
+    },
+    toolbar: {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+    },
+    menuIcon: {
+      paddingLeft: 1,
+      "&:hover ,&:focus": {
+        background: "transparent",
+      },
+    },
+    logoutIcon: {
+      paddingRight: 0,
+      "&:hover ,&:focus": {
+        background: "transparent",
+      },
     },
   })
 );
 
 type Props = {
   open: boolean;
+  handleDrawerToggle: () => void;
 };
 
-const Topbar = ({ open }: Props) => {
+const Topbar = ({ open, handleDrawerToggle }: Props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -57,8 +80,15 @@ const Topbar = ({ open }: Props) => {
       color="transparent"
       className={clsx(classes.appBar)}
     >
-      <Toolbar>
-        <Link to={URL_HOME}>
+      <Toolbar className={classes.toolbar}>
+        <IconButton
+          className={classes.menuIcon}
+          onClick={handleDrawerToggle}
+          disableRipple
+        >
+          <MenuIcon />
+        </IconButton>
+        <Link to={URL_HOME} className={classes.ydtLink}>
           <img src={ydtLogoDark} alt="YDT logo" className={classes.ydtLogo} />
         </Link>
         <div className={classes.flexGrow} />
@@ -68,7 +98,12 @@ const Topbar = ({ open }: Props) => {
           color="secondary"
           inputProps={{ "aria-label": "primary checkbox" }}
         />
-        <IconButton color="inherit" onClick={handleLogout}>
+        <IconButton
+          color="inherit"
+          className={classes.logoutIcon}
+          onClick={handleLogout}
+          disableRipple
+        >
           <InputIcon />
         </IconButton>
       </Toolbar>

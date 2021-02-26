@@ -29,14 +29,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerOpen: {
       width: drawerWidth,
-      marginTop: 65,
+      marginTop: 67,
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
     drawerClose: {
-      marginTop: 65,
+      marginTop: 67,
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -64,13 +64,17 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       color: "inherit",
       textDecoration: "none",
+      "& .MuiListItemIcon-root": {
+        minWidth: 45,
+      },
     },
     active: {
       color: theme.palette.secondary.main,
-
-      fontWeight: theme.typography.fontWeightMedium,
       "& .MuiListItemIcon-root": {
         color: theme.palette.secondary.main,
+      },
+      "& .MuiTypography-body1": {
+        fontWeight: theme.typography.fontWeightBold,
       },
     },
   })

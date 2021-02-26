@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
+      minHeight: "100vh",
     },
     content: {
       marginTop: 65,

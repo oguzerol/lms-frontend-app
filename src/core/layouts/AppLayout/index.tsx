@@ -8,12 +8,17 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
+      overflow: "hidden",
       minHeight: "100vh",
     },
     content: {
-      marginTop: 65,
+      [theme.breakpoints.up("sm")]: {
+        marginTop: 67,
+      },
+      marginTop: 58,
       flexGrow: 1,
       padding: theme.spacing(3),
+      minWidth: 300,
     },
   })
 );

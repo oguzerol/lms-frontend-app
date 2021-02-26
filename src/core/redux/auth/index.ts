@@ -36,6 +36,7 @@ export const authSlice = createSlice({
     deleteAuth: (state) => {
       state.isAuthenticated = false;
       state.user = null;
+      state.isLoading = false;
     },
   },
 });

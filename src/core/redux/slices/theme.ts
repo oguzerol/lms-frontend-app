@@ -3,14 +3,14 @@ import { RootState } from "../store";
 
 export const TOGGLE_THEME = "TOGGLE_THEME";
 
-export type Theme = string;
+export type Theme = "light" | "dark";
 
 export type ThemeState = {
-  theme?: Theme;
+  theme: Theme;
 };
 
 const initialState: ThemeState = {
-  theme: localStorage.getItem("theme") || "light",
+  theme: localStorage.getItem("theme") === "dark" ? "dark" : "light",
 };
 
 export const themeSlice = createSlice({

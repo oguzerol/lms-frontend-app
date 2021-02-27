@@ -1,9 +1,9 @@
+import { Theme } from "../redux/slices/theme";
+
 const white = "#FFFFFF";
 const black = "#000000";
 
-type Type = "dark" | "light" | undefined;
-
-const getPalette = (type: Type) => {
+const getPalette = (type: Theme) => {
   if (type === "dark") {
     return {
       type,

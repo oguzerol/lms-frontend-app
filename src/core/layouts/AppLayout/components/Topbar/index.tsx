@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     ydtLogo: {
       width: 90,
-      paddingLeft: theme.spacing(2),
+      paddingLeft: theme.spacing(1),
       height: "100%",
     },
     toolbar: {

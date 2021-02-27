@@ -1,10 +1,13 @@
+import Typography from "@material-ui/core/Typography";
+
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <Typography component="h1" variant="h5">
+          Anasayfa
+        </Typography>
+
         <a
           className="App-link"
           href="https://reactjs.org"

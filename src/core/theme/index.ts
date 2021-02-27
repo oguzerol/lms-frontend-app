@@ -7,6 +7,15 @@ const getTheme = (type: Theme) => {
   return createMuiTheme({
     overrides,
     palette: getPalette(type),
+    typography: {
+      fontFamily: [
+        "Nunito",
+        "Roboto",
+        '"Helvetica Neue"',
+        "Arial",
+        "sans-serif",
+      ].join(","),
+    },
   });
 };
 

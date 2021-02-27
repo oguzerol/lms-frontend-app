@@ -12,6 +12,7 @@ import AppRoute from "./route/AppRoute";
 import { URL_HOME, URL_LOGIN } from "./route/constants";
 import { useSelector } from "react-redux";
 import { selectTheme } from "./redux/slices/theme";
+import "../assets/fonts.css";
 
 const Root = () => {
   const theme = useSelector(selectTheme);

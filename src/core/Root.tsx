@@ -14,9 +14,9 @@ import { useSelector } from "react-redux";
 import { selectTheme } from "./redux/slices/theme";
 
 const Root = () => {
-  const theme1 = useSelector(selectTheme);
+  const theme = useSelector(selectTheme);
   return (
-    <ThemeProvider theme={getTheme(theme1)}>
+    <ThemeProvider theme={getTheme(theme)}>
       <CssBaseline />
       <Router>
         <Switch>

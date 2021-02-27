@@ -15,7 +15,7 @@ import { deleteAuth } from "../../../../redux/slices/auth";
 import { URL_HOME, URL_LOGIN } from "../../../../route/constants";
 import ydtLogoDark from "../../../../../assets/images/ydt_logo_dark.png";
 import ydtLogo from "../../../../../assets/images/ydt_logo.png";
-import { selectTheme, toggleTheme } from "../../../../redux/slices/theme";
+import { selectIsDarkTheme, toggleTheme } from "../../../../redux/slices/theme";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -66,13 +66,13 @@ type Props = {
 
 const Topbar = ({ open, handleDrawerToggle }: Props) => {
   const dispatch = useDispatch();
-  const theme = useSelector(selectTheme);
+  const isDarkTheme = useSelector(selectIsDarkTheme);
   const history = useHistory();
 
   const classes = useStyles();
 
   const handleThemeChange = () => {
-    const currentTheme = theme === "dark" ? "light" : "dark";
+    const currentTheme = isDarkTheme ? "light" : "dark";
     localStorage.setItem("theme", currentTheme);
     dispatch(toggleTheme(currentTheme));
   };
@@ -100,14 +100,14 @@ const Topbar = ({ open, handleDrawerToggle }: Props) => {
         </IconButton>
         <Link to={URL_HOME} className={classes.ydtLink}>
           <img
-            src={theme === "dark" ? ydtLogoDark : ydtLogo}
+            src={isDarkTheme ? ydtLogoDark : ydtLogo}
             alt="YDT logo"
             className={classes.ydtLogo}
           />
         </Link>
         <div className={classes.flexGrow} />
         <Switch
-          checked={theme === "dark"}
+          checked={isDarkTheme}
           onClick={handleThemeChange}
           color="secondary"
           inputProps={{ "aria-label": "primary checkbox" }}

@@ -1,6 +1,6 @@
 import { Route, Redirect, RouteComponentProps } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectAuth } from "../redux/auth";
+import { selectAuth } from "../redux/slices/auth";
 
 import EmptyLayout from "../layouts/EmptyLayout";
 import { URL_LOGIN } from "./constants";

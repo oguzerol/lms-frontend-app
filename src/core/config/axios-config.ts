@@ -3,9 +3,9 @@ import { AppDispatch } from "../redux/store";
 
 const { REACT_APP_API_BASE } = process.env;
 
-interface Store {
+type Store = {
   dispatch: AppDispatch;
-}
+};
 
 const configAxios = (store: Store) => {
   axios.defaults.baseURL = REACT_APP_API_BASE;

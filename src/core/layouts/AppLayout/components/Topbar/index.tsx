@@ -1,5 +1,7 @@
 import clsx from "clsx";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import axios from "axios";
+
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,8 +11,7 @@ import { Switch } from "@material-ui/core";
 import InputIcon from "@material-ui/icons/Input";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
-import { deleteAuth } from "../../../../redux/auth";
+import { deleteAuth } from "../../../../redux/slices/auth";
 import { URL_HOME, URL_LOGIN } from "../../../../route/constants";
 import ydtLogoDark from "../../../../../assets/images/ydt_logo_dark.png";
 

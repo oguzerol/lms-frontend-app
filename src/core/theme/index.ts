@@ -1,14 +1,14 @@
 import { createMuiTheme } from "@material-ui/core";
-import palette from "./palette";
+import getPalette from "./palette";
 import overrides from "./overrides";
 
 type Type = "dark" | "light" | undefined;
 
-const theme = (type: Type) => {
+const getTheme = (type: Type) => {
   return createMuiTheme({
     overrides,
-    palette: palette(type),
+    palette: getPalette(type),
   });
 };
 
-export default theme;
+export default getTheme;

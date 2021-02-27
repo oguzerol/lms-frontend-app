@@ -2,11 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { store } from "./core/redux/store";
-import { ThemeProvider } from "@material-ui/core/styles";
 import reportWebVitals from "./core/reportWebVitals";
 import configAxios from "./core/config/axios-config";
-import theme from "./core/theme";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Root from "./core/Root";
 
 configAxios(store);
@@ -14,10 +11,7 @@ configAxios(store);
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme("dark")}>
-        <CssBaseline />
-        <Root />
-      </ThemeProvider>
+      <Root />
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

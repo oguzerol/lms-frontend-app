@@ -3,7 +3,7 @@ const black = "#000000";
 
 type Type = "dark" | "light" | undefined;
 
-const palette = (type: Type) => {
+const getPalette = (type: Type) => {
   if (type === "dark") {
     return {
       type,
@@ -33,4 +33,4 @@ const palette = (type: Type) => {
   }
 };
 
-export default palette;
+export default getPalette;

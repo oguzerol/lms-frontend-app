@@ -4,16 +4,16 @@ import { RootState } from "../store";
 export const SET_AUTH = "SET_AUTH";
 export const DELETE_AUTH = "DELETE_AUTH";
 
-export interface User {
+export type User = {
   id: number;
   email: string;
-}
+};
 
-export interface AuthState {
+export type AuthState = {
   user: null | User;
   isAuthenticated: boolean;
   isLoading: boolean;
-}
+};
 
 const initialState: AuthState = {
   isAuthenticated: false,

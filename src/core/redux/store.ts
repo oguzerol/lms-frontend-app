@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import axios from "axios";
-import { authSlice } from "./auth";
-import authReducer from "./auth";
 import { API_ME } from "../route/constants";
+
+import authReducer, { authSlice } from "./slices/auth";
+import themeReducer from "./slices/theme";
 
 const { REACT_APP_API_BASE } = process.env;
 
@@ -30,6 +31,7 @@ const checkAuth = () => {
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    theme: themeReducer,
   },
 });
 

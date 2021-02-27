@@ -14,7 +14,7 @@ import Container from "@material-ui/core/Container";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import { API_LOGIN, URL_HOME, API_ME } from "../../core/route/constants";
-import { selectAuth, setAuth } from "../../core/redux/auth";
+import { selectAuth, setAuth } from "../../core/redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 
 const validationSchema = yup.object({

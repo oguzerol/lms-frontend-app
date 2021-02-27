@@ -108,7 +108,7 @@ const Topbar = ({ open, handleDrawerToggle }: Props) => {
         <div className={classes.flexGrow} />
         <Switch
           checked={isDarkTheme}
-          onClick={handleThemeChange}
+          onChange={handleThemeChange}
           color="secondary"
           inputProps={{ "aria-label": "primary checkbox" }}
         />

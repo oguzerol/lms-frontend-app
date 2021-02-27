@@ -17,8 +17,8 @@ export const themeSlice = createSlice({
   name: "theme",
   initialState,
   reducers: {
-    toggleTheme: (state) => {
-      state.theme = state.theme === "dark" ? "light" : "dark";
+    toggleTheme: (state, action) => {
+      state.theme = action.payload;
     },
   },
 });

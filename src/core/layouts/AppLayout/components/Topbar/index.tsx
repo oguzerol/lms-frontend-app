@@ -9,11 +9,13 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 import { Switch } from "@material-ui/core";
 import InputIcon from "@material-ui/icons/Input";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { deleteAuth } from "../../../../redux/slices/auth";
 import { URL_HOME, URL_LOGIN } from "../../../../route/constants";
 import ydtLogoDark from "../../../../../assets/images/ydt_logo_dark.png";
+import ydtLogo from "../../../../../assets/images/ydt_logo.png";
+import { selectTheme, toggleTheme } from "../../../../redux/slices/theme";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,9 +66,16 @@ type Props = {
 
 const Topbar = ({ open, handleDrawerToggle }: Props) => {
   const dispatch = useDispatch();
+  const theme = useSelector(selectTheme);
   const history = useHistory();
 
   const classes = useStyles();
+
+  const handleThemeChange = () => {
+    const currentTheme = theme === "dark" ? "light" : "dark";
+    localStorage.setItem("theme", currentTheme);
+    dispatch(toggleTheme(currentTheme));
+  };
 
   const handleLogout = () => {
     dispatch(deleteAuth());
@@ -90,12 +99,16 @@ const Topbar = ({ open, handleDrawerToggle }: Props) => {
           <MenuIcon />
         </IconButton>
         <Link to={URL_HOME} className={classes.ydtLink}>
-          <img src={ydtLogoDark} alt="YDT logo" className={classes.ydtLogo} />
+          <img
+            src={theme === "dark" ? ydtLogoDark : ydtLogo}
+            alt="YDT logo"
+            className={classes.ydtLogo}
+          />
         </Link>
         <div className={classes.flexGrow} />
         <Switch
-          checked
-          // onChange={handleThemeChange}
+          checked={theme === "dark"}
+          onClick={handleThemeChange}
           color="secondary"
           inputProps={{ "aria-label": "primary checkbox" }}
         />

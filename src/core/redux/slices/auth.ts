@@ -7,6 +7,7 @@ export const DELETE_AUTH = "DELETE_AUTH";
 export type User = {
   id: number;
   email: string;
+  username: string;
 };
 
 export type AuthState = {

@@ -12,7 +12,7 @@ import InputIcon from "@material-ui/icons/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { deleteAuth } from "../../../../redux/slices/auth";
-import { URL_HOME, URL_LOGIN } from "../../../../route/constants";
+import { URL_DASHBOARD, URL_LOGIN } from "../../../../route/constants";
 import ydtLogoDark from "../../../../../assets/images/ydt_logo_dark.png";
 import ydtLogo from "../../../../../assets/images/ydt_logo.png";
 import { selectIsDarkTheme, toggleTheme } from "../../../../redux/slices/theme";
@@ -98,7 +98,7 @@ const Topbar = ({ open, handleDrawerToggle }: Props) => {
         >
           <MenuIcon />
         </IconButton>
-        <Link to={URL_HOME} className={classes.ydtLink}>
+        <Link to={URL_DASHBOARD} className={classes.ydtLink}>
           <img
             src={isDarkTheme ? ydtLogoDark : ydtLogo}
             alt="YDT logo"

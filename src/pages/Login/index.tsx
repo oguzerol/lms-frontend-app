@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
-import { API_LOGIN, URL_HOME, API_ME } from "../../core/route/constants";
+import { API_LOGIN, URL_DASHBOARD, API_ME } from "../../core/route/constants";
 import { selectAuth, setAuth } from "../../core/redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -72,7 +72,7 @@ const Login = () => {
 
         axios.get(API_ME).then((res) => {
           dispatch(setAuth(res.data));
-          history.replace(URL_HOME);
+          history.replace(URL_DASHBOARD);
         });
       } catch (err) {
         // TODO: handle errors
@@ -80,7 +80,7 @@ const Login = () => {
     },
   });
 
-  if (isAuthenticated) return <Redirect to={URL_HOME} />;
+  if (isAuthenticated) return <Redirect to={URL_DASHBOARD} />;
   return (
     <Container maxWidth="xs" className={classes.root}>
       <Box mb={3} display="flex" alignItems="center" flexDirection="column">

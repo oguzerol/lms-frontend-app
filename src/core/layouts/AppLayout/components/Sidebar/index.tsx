@@ -5,7 +5,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import { URL_HOME } from "../../../../route/constants";
+import { URL_DASHBOARD } from "../../../../route/constants";
 import HomeIcon from "@material-ui/icons/Home";
 import { NavLink } from "react-router-dom";
 
@@ -91,19 +91,7 @@ const pages = [
   {
     id: 0,
     title: "Dashboard",
-    href: URL_HOME,
-    icon: <HomeIcon />,
-  },
-  {
-    id: 1,
-    title: "Sınavlarım",
-    href: "/sinavlar",
-    icon: <HomeIcon />,
-  },
-  {
-    id: 2,
-    title: "Sonuçlarım",
-    href: "/sonuclar",
+    href: URL_DASHBOARD,
     icon: <HomeIcon />,
   },
 ];

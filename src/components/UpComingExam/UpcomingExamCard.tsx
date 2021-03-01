@@ -22,7 +22,7 @@ const UpcomingExamCard = () => {
         <Typography variant="body1">
           {data.length === 0
             ? "Şuanda çözebileceginiz bir sınav yok."
-            : `Hemen çözebileceginiz ${data.length} sınav bulunmaktadır.`}
+            : `Hemen çözebileceginiz ${data.length} adet sınav bulunmaktadır.`}
         </Typography>
         <Button
           component={RouterLink}

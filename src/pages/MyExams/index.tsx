@@ -1,7 +1,7 @@
 import { Grid } from "@material-ui/core";
 import UpComingExam from "../../components/UpComingExam";
 
-const Dashboard = () => {
+const MyExams = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={4}>
@@ -11,4 +11,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default MyExams;

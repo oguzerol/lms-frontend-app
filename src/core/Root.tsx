@@ -10,10 +10,11 @@ import NotFound from "../pages/NotFound";
 import AppLayout from "./layouts/AppLayout";
 import getTheme from "../core/theme";
 import AppRoute from "./route/AppRoute";
-import { URL_DASHBOARD, URL_LOGIN } from "./route/constants";
+import { URL_DASHBOARD, URL_LOGIN, URL_MY_EXAMS } from "./route/constants";
 import { selectTheme } from "./redux/slices/theme";
 
 import "../assets/fonts.css";
+import MyExams from "../pages/MyExams";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +33,13 @@ const Root = () => {
               privateRoute
               layout={AppLayout}
             />
-            <AppRoute exact path={URL_LOGIN} component={Login} />
+            <AppRoute
+              path={URL_MY_EXAMS}
+              component={MyExams}
+              privateRoute
+              layout={AppLayout}
+            />
+            <AppRoute path={URL_LOGIN} component={Login} />
             <AppRoute path={`*`} component={NotFound} privateRoute />
           </Switch>
         </Router>

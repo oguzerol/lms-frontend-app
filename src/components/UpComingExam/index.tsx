@@ -1,4 +1,5 @@
 import {
+  Box,
   createStyles,
   makeStyles,
   Paper,
@@ -15,12 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: "150px",
       padding: theme.spacing(4),
     },
-    pageLoad: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      height: "100vh",
-    },
   })
 );
 
@@ -30,7 +25,9 @@ const UpComingExam = () => {
 
   return (
     <Paper className={classes.root}>
-      <Typography variant="h6">Merhaba {user?.username}</Typography>
+      <Typography component="div" variant="h6">
+        <Box fontWeight="fontWeightBold">Merhaba {user?.username},</Box>
+      </Typography>
       <UpcomingExamCard />
     </Paper>
   );

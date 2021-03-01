@@ -33,6 +33,8 @@ const AppRoute = ({
 
   return (
     <Route
+      path={path}
+      exact={exact}
       {...rest}
       render={(props) => {
         if (isLoading) {

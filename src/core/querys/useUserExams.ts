@@ -2,10 +2,10 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { API_USER_EXAMS } from "../route/constants";
 
-const useUserExams = () =>
+const useUserExams = (type = "all") =>
   useQuery(
-    "userExams",
-    () => axios.get(API_USER_EXAMS).then((res) => res.data),
+    `userExams_${type}`,
+    () => axios.get(`${API_USER_EXAMS}?type=${type}`).then((res) => res.data),
     {
       retry: false,
       refetchOnWindowFocus: false,

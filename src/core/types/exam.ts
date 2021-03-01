@@ -1,3 +1,4 @@
+// TODO: UPDATE
 export type Exams = {
   name: string;
 };
@@ -12,5 +13,5 @@ export type UserExams = {
   created_at: null | Date;
   updated_at: null | Date;
   deleted_at: null | Date;
-  exams: Exams;
+  info: Exams;
 };

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       minHeight: "150px",
-      padding: theme.spacing(2),
+      padding: theme.spacing(4),
     },
     pageLoad: {
       display: "flex",

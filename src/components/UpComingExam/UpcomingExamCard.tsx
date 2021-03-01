@@ -19,10 +19,12 @@ const UpcomingExamCard = () => {
         justifyContent="space-between"
         marginTop={2}
       >
-        <Typography variant="body1">
-          {data.length === 0
-            ? "Şuanda çözebileceginiz bir sınav yok."
-            : `Hemen çözebileceginiz ${data.length} adet sınav bulunmaktadır.`}
+        <Typography variant="body1" component="div">
+          <Box marginRight={2}>
+            {data.length === 0
+              ? "Şuanda çözebileceginiz bir sınav yok."
+              : `Hemen çözebileceginiz ${data.length} adet sınav bulunmaktadır.`}
+          </Box>
         </Typography>
         <Button
           component={RouterLink}

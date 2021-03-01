@@ -1,5 +1,6 @@
 // TODO: UPDATE
 export type Exams = {
+  id: number;
   name: string;
 };
 

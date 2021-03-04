@@ -15,6 +15,7 @@ import { selectTheme } from "./redux/slices/theme";
 
 import "../assets/fonts.css";
 import MyExams from "../pages/MyExams";
+import { SocketProvider } from "./contexts/socket";
 
 const queryClient = new QueryClient();
 
@@ -23,27 +24,29 @@ const Root = () => {
   return (
     <ThemeProvider theme={getTheme(theme)}>
       <CssBaseline />
-      <QueryClientProvider client={queryClient}>
-        <Router>
-          <Switch>
-            <AppRoute
-              exact
-              path={URL_DASHBOARD}
-              component={Dashboard}
-              privateRoute
-              layout={AppLayout}
-            />
-            <AppRoute
-              path={URL_MY_EXAMS}
-              component={MyExams}
-              privateRoute
-              layout={AppLayout}
-            />
-            <AppRoute path={URL_LOGIN} component={Login} />
-            <AppRoute path={`*`} component={NotFound} privateRoute />
-          </Switch>
-        </Router>
-      </QueryClientProvider>
+      <SocketProvider>
+        <QueryClientProvider client={queryClient}>
+          <Router>
+            <Switch>
+              <AppRoute
+                exact
+                path={URL_DASHBOARD}
+                component={Dashboard}
+                privateRoute
+                layout={AppLayout}
+              />
+              <AppRoute
+                path={URL_MY_EXAMS}
+                component={MyExams}
+                privateRoute
+                layout={AppLayout}
+              />
+              <AppRoute path={URL_LOGIN} component={Login} />
+              <AppRoute path={`*`} component={NotFound} privateRoute />
+            </Switch>
+          </Router>
+        </QueryClientProvider>
+      </SocketProvider>
     </ThemeProvider>
   );
 };

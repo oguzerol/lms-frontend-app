@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Table from "@material-ui/core/Table";
 import Button from "@material-ui/core/Button";
@@ -13,12 +13,29 @@ import { Typography } from "@material-ui/core";
 import { UserExams } from "../../core/types/exam";
 import useUserExams from "../../core/querys/useUserExams";
 import Loading from "../../components/Loading";
+import { useSocket } from "../../core/contexts/socket";
+import axios from "axios";
 
 export default function StandAloneExams() {
+  const socket = useSocket();
   let { data, isLoading, error } = useUserExams();
 
+  useEffect(() => {
+    if (socket == null) return;
+
+    socket.on("end-exam", () => {
+      console.log("sinavi bitirme istegi geldi");
+    });
+
+    return () => {
+      socket.off("end-exam");
+    };
+  }, [socket]);
+
   const startExam = (id: number) => {
-    console.log(id);
+    axios
+      .put(`user/exams/${id}/start`)
+      .then((res) => console.log("yee basladi istekle"));
   };
 
   if (error) return <Typography>Bir hata oluştu.</Typography>;

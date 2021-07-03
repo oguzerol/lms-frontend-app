@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 import Table from "@material-ui/core/Table";
 import Button from "@material-ui/core/Button";
@@ -14,32 +15,39 @@ import { UserExams } from "../../core/types/exam";
 import useUserExams from "../../core/querys/useUserExams";
 import Loading from "../../components/Loading";
 import { useSocket } from "../../core/contexts/socket";
-import axios from "axios";
+import { toastError, toastLocalDebug } from "../../core/utils/toaster";
 
 export default function StandAloneExams() {
   const socket = useSocket();
-  let { data, isLoading, error } = useUserExams();
+  let { data, isLoading, error } = useUserExams("done");
 
   useEffect(() => {
     if (socket == null) return;
 
+    toastLocalDebug("Socket bağlantısı kuruldu.");
+
     socket.on("end-exam", () => {
-      console.log("sinavi bitirme istegi geldi");
+      toastLocalDebug("Socket'ten sınavı bitirme isteği geldi.");
     });
 
     return () => {
       socket.off("end-exam");
+      toastLocalDebug("Socket bağlantısı kapatıldı.");
     };
   }, [socket]);
 
   const startExam = (id: number) => {
     axios
       .put(`user/exams/${id}/start`)
-      .then((res) => console.log("yee basladi istekle"));
+      .then((res) => toastLocalDebug(`Sinav baslatma istegi basarili ${res}`))
+      .catch((err) => {
+        toastError(`Sınava başlanamadı. ${err.response.data.error}`);
+      });
   };
 
   if (error) return <Typography>Bir hata oluştu.</Typography>;
   if (isLoading) return <Loading />;
+
   return data && data.length ? (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">

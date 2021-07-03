@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { Toaster } from "react-hot-toast";
 
 import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
@@ -24,6 +25,7 @@ const Root = () => {
   return (
     <ThemeProvider theme={getTheme(theme)}>
       <CssBaseline />
+      <Toaster position="bottom-right" reverseOrder={false} />
       <SocketProvider>
         <QueryClientProvider client={queryClient}>
           <Router>

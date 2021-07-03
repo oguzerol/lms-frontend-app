@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import axios from "axios";
 
 import Table from "@material-ui/core/Table";
@@ -14,30 +13,13 @@ import { Typography } from "@material-ui/core";
 import { UserExams } from "../../core/types/exam";
 import useUserExams from "../../core/querys/useUserExams";
 import Loading from "../../components/Loading";
-import { useSocket } from "../../core/contexts/socket";
-import { toastError, toastLocalDebug } from "../../core/utils/toaster";
+import { toastError } from "../../core/utils/toaster";
 import { useHistory } from "react-router";
 import { URL_EXAM } from "../../core/route/constants";
 
 export default function StandAloneExams() {
-  const socket = useSocket();
   const history = useHistory();
   let { data, isLoading, error } = useUserExams("undone");
-
-  useEffect(() => {
-    if (socket == null) return;
-
-    toastLocalDebug("Socket bağlantısı kuruldu.");
-
-    socket.on("end-exam", () => {
-      toastLocalDebug("Socket'ten sınavı bitirme isteği geldi.");
-    });
-
-    return () => {
-      socket.off("end-exam");
-      toastLocalDebug("Socket bağlantısı kapatıldı.");
-    };
-  }, [socket]);
 
   const startExam = (id: number) => {
     axios

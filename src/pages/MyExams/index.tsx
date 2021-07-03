@@ -16,10 +16,13 @@ import useUserExams from "../../core/querys/useUserExams";
 import Loading from "../../components/Loading";
 import { useSocket } from "../../core/contexts/socket";
 import { toastError, toastLocalDebug } from "../../core/utils/toaster";
+import { useHistory } from "react-router";
+import { URL_EXAM } from "../../core/route/constants";
 
 export default function StandAloneExams() {
   const socket = useSocket();
-  let { data, isLoading, error } = useUserExams("done");
+  const history = useHistory();
+  let { data, isLoading, error } = useUserExams("undone");
 
   useEffect(() => {
     if (socket == null) return;
@@ -39,7 +42,7 @@ export default function StandAloneExams() {
   const startExam = (id: number) => {
     axios
       .put(`user/exams/${id}/start`)
-      .then((res) => toastLocalDebug(`Sinav baslatma istegi basarili ${res}`))
+      .then((res) => history.push(`${URL_EXAM}/${id}`))
       .catch((err) => {
         toastError(`Sınava başlanamadı. ${err.response.data.error}`);
       });

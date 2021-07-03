@@ -1,21 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-export type User = {
-  id: number;
-  email: string;
-  username: string;
-};
-
 export type ExamState = {
-  user: null | User;
-  isAuthenticated: boolean;
+  exam: null | Object;
   isLoading: boolean;
 };
 
 const initialState: ExamState = {
-  isAuthenticated: false,
-  user: null,
+  exam: false,
   isLoading: false,
 };
 
@@ -27,13 +19,11 @@ export const examSlice = createSlice({
       state.isLoading = true;
     },
     setExam: (state, action) => {
-      state.isAuthenticated = true;
-      state.user = action.payload;
+      state.exam = action.payload;
       state.isLoading = false;
     },
     deleteExam: (state) => {
-      state.isAuthenticated = false;
-      state.user = null;
+      state.exam = null;
       state.isLoading = false;
     },
   },

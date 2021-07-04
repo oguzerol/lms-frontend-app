@@ -7,7 +7,7 @@ export type ExamState = {
 };
 
 const initialState: ExamState = {
-  exam: false,
+  exam: null,
   isLoading: false,
 };
 
@@ -29,8 +29,9 @@ export const examSlice = createSlice({
   },
 });
 
-export const { setExam, deleteExam } = examSlice.actions;
+export const { setExam, deleteExam, examRequest } = examSlice.actions;
 
 export const selectExam = (state: RootState) => state.exam;
+export const selectEndTime = (state: RootState) => state.exam;
 
 export default examSlice.reducer;

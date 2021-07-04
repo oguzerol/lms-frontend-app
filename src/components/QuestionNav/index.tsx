@@ -16,7 +16,7 @@ const Nav = ({
     const newQuestionNumber = next
       ? currentQuestionIndex + 1
       : currentQuestionIndex - 1;
-    if (!(newQuestionNumber <= 0 || newQuestionNumber > 80)) {
+    if (!(newQuestionNumber <= -1 || newQuestionNumber > 79)) {
       changeCurrentQuestion(newQuestionNumber);
     }
   };

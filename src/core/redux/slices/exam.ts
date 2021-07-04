@@ -1,8 +1,13 @@
+import { UserExams } from "./../../types/exam";
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-export type ExamState = {
-  exam: null | Object;
+type Exam = {
+  user_exams: UserExams;
+};
+
+type ExamState = {
+  exam: Exam | null;
   isLoading: boolean;
 };
 
@@ -32,6 +37,7 @@ export const examSlice = createSlice({
 export const { setExam, deleteExam, examRequest } = examSlice.actions;
 
 export const selectExam = (state: RootState) => state.exam;
-export const selectEndTime = (state: RootState) => state.exam;
+export const selectEndTime = (state: RootState) =>
+  state.exam.exam?.user_exams.standalone_end_time;
 
 export default examSlice.reducer;

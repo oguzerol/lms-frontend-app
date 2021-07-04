@@ -12,15 +12,16 @@ const useStyles = makeStyles(() => ({
 }));
 
 type Props = {
-  endTime: Date;
+  endTime: Date | null | undefined;
 };
 
 const ExamTimer = ({ endTime }: Props) => {
   const [now, setNow] = useState(moment());
   const utcEndTime = moment(endTime);
   const duration = moment.duration(utcEndTime.diff(moment()));
-  const hours = duration.asHours();
-  const minutes = duration.asMinutes() % 60;
+  const hours = Math.trunc(duration.asHours());
+  const minutes = Math.trunc(duration.asMinutes() % 60);
+
   let remaingTime = "00:00";
   if (moment(now).isBefore(endTime)) {
     remaingTime = endTime

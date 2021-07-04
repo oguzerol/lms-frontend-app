@@ -17,6 +17,7 @@ import ydtLogo from "../../../../../assets/images/ydt_logo.png";
 import { selectIsDarkTheme, toggleTheme } from "../../../../redux/slices/theme";
 
 import ExamTimer from "../../../../../components/ExamTimer";
+import { selectEndTime } from "../../../../redux/slices/exam";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,6 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Topbar = () => {
   const dispatch = useDispatch();
   const isDarkTheme = useSelector(selectIsDarkTheme);
+  const examEndTime = useSelector(selectEndTime);
   const history = useHistory();
 
   const classes = useStyles();
@@ -95,7 +97,7 @@ const Topbar = () => {
           />
         </Link>
         <div className={classes.flexGrow} />
-        <ExamTimer endTime={new Date()} />
+        <ExamTimer endTime={examEndTime} />
         <Switch
           checked={isDarkTheme}
           onChange={handleThemeChange}

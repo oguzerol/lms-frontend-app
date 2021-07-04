@@ -1,7 +1,7 @@
 import { Box } from "@material-ui/core";
 
-import Instruction from "./Instruction";
-import Subject from "./Subject";
+import Info from "./Info";
+import Content from "./Content";
 import Answer from "../Answer";
 
 // TODO mutliple types 0001
@@ -24,20 +24,20 @@ const Question = ({
   currentQuestionId,
   changeAnswer,
   userAnswers,
-  currentQuestionSubject,
+  currentQuestionContent,
 }: {
-  currentQuestionInfo: String;
+  currentQuestionInfo?: String;
   currentQuestionAnswers: Array<CurrentQuestionAnswer>;
   currentQuestionIndex: number;
   currentQuestionId: number;
   changeAnswer: Function;
   userAnswers: Array<UserAnswer>;
-  currentQuestionSubject: String;
+  currentQuestionContent?: String;
 }) => {
   return (
     <Box>
-      <Instruction currentQuestionInfo={currentQuestionInfo} />
-      <Subject currentQuestionSubject={currentQuestionSubject} />
+      <Info currentQuestionInfo={currentQuestionInfo} />
+      <Content currentQuestionContent={currentQuestionContent} />
       <Answer
         currentQuestionAnswers={currentQuestionAnswers}
         currentQuestionIndex={currentQuestionIndex}

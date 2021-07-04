@@ -7,7 +7,7 @@ import {
   deleteExam,
 } from "../../core/redux/slices/exam";
 
-import { useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import { useHistory, useParams } from "react-router";
 import { Paper, makeStyles } from "@material-ui/core";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
@@ -61,6 +61,16 @@ const Exam = () => {
   const classes = useStyles();
   const { examId }: { examId?: String } = useParams();
 
+  const [state, setState] = useReducer(
+    (currentState: {}, newState: { currentQuestionIndex: number }) => ({
+      ...currentState,
+      ...newState,
+    }),
+    {
+      currentQuestionIndex: 0,
+    }
+  );
+
   useEffect(() => {
     dispatch(examRequest());
     axios
@@ -98,11 +108,19 @@ const Exam = () => {
   }, [socket, history]);
 
   const isQuestionMarked = 1;
-  const currentQuestionIndex = 1;
 
-  const handleQuestionChange = () => {
-    console.log("yeee");
+  const handleQuestionChange = (id: number) => {
+    setState({ currentQuestionIndex: id });
   };
+
+  const { currentQuestionIndex } = state;
+
+  const currentQuestionInfo = exam?.questions[currentQuestionIndex].info;
+  const currentQuestionContent = exam?.questions[currentQuestionIndex].content;
+
+  console.log(exam?.questions[currentQuestionIndex].info);
+  console.log(currentQuestionInfo);
+
   return (
     <Paper elevation={3} className={classes.root}>
       <div className={classes.left}>
@@ -114,13 +132,13 @@ const Exam = () => {
       </div>
       <div className={classes.middle}>
         <Question
-          currentQuestionInfo="info"
+          currentQuestionInfo={currentQuestionInfo}
           currentQuestionAnswers={[]}
           currentQuestionIndex={currentQuestionIndex}
           currentQuestionId={1}
+          currentQuestionContent={currentQuestionContent}
           changeAnswer={handleQuestionChange}
           userAnswers={[]}
-          currentQuestionSubject="Subject"
         />
       </div>
       <div className={classes.right}>

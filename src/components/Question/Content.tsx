@@ -11,16 +11,16 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const Subject = ({
-  currentQuestionSubject,
+const Content = ({
+  currentQuestionContent,
 }: {
-  currentQuestionSubject?: String;
+  currentQuestionContent?: String;
 }) => {
   const classes = useStyles();
 
-  return !currentQuestionSubject ? null : (
-    <Typography className={classes.root}>{currentQuestionSubject}</Typography>
+  return !currentQuestionContent ? null : (
+    <Typography className={classes.root}>{currentQuestionContent}</Typography>
   );
 };
 
-export default Subject;
+export default Content;

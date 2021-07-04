@@ -2,8 +2,14 @@ import { UserExams } from "./../../types/exam";
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
+type Question = {
+  info: String;
+  content: String;
+};
+
 type Exam = {
   user_exams: UserExams;
+  questions: Array<Question>;
 };
 
 type ExamState = {
@@ -36,7 +42,7 @@ export const examSlice = createSlice({
 
 export const { setExam, deleteExam, examRequest } = examSlice.actions;
 
-export const selectExam = (state: RootState) => state.exam;
+export const selectExam = (state: RootState) => state.exam.exam;
 export const selectEndTime = (state: RootState) =>
   state.exam.exam?.user_exams.standalone_end_time;
 

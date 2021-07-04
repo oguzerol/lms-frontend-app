@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => {
 const QuestionNumber = ({
   currentQuestionIndex,
 }: {
-  currentQuestionIndex: Number;
+  currentQuestionIndex: number;
 }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Typography className={classes.currentQuestion}>
-        {currentQuestionIndex}
+        {currentQuestionIndex + 1}
       </Typography>
     </div>
   );

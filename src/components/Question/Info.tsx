@@ -11,11 +11,7 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const Instruction = ({
-  currentQuestionInfo,
-}: {
-  currentQuestionInfo: String;
-}) => {
+const Info = ({ currentQuestionInfo }: { currentQuestionInfo?: String }) => {
   const classes = useStyles();
 
   return !currentQuestionInfo ? null : (
@@ -23,4 +19,4 @@ const Instruction = ({
   );
 };
 
-export default Instruction;
+export default Info;

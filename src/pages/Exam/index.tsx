@@ -9,11 +9,48 @@ import {
 
 import { useEffect } from "react";
 import { useHistory, useParams } from "react-router";
+import { Paper, makeStyles } from "@material-ui/core";
+import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+import Bookmark from "@material-ui/icons/Bookmark";
 
 import { useSocket } from "../../core/contexts/socket";
 import { API_USER_EXAMS } from "../../core/route/constants";
 import { toastLocalDebug } from "../../core/utils/toaster";
 import axios from "axios";
+import QuestionNumber from "../../components/QuestionNumber";
+import QuestionNav from "../../components/QuestionNav";
+import Question from "../../components/Question";
+
+const useStyles = makeStyles((theme) => {
+  return {
+    root: {
+      width: "100%",
+      display: "flex",
+      padding: "50px 0",
+      height: "100%",
+    },
+    left: {
+      display: "flex",
+      alignItems: "center",
+      position: "relative",
+      flexBasis: "64px",
+    },
+    right: {
+      display: "flex",
+      alignItems: "center",
+      flexBasis: "64px",
+      position: "relative",
+    },
+    middle: {
+      flexGrow: 1,
+    },
+    bookmark: {
+      position: "absolute",
+      top: 0,
+      right: "15px",
+    },
+  };
+});
 
 const Exam = () => {
   const dispatch = useDispatch();
@@ -21,6 +58,7 @@ const Exam = () => {
 
   const socket = useSocket();
   const history = useHistory();
+  const classes = useStyles();
   const { examId }: { examId?: String } = useParams();
 
   useEffect(() => {
@@ -59,7 +97,48 @@ const Exam = () => {
     };
   }, [socket, history]);
 
-  return <div>exam content</div>;
+  const isQuestionMarked = 1;
+  const currentQuestionIndex = 1;
+
+  const handleQuestionChange = () => {
+    console.log("yeee");
+  };
+  return (
+    <Paper elevation={3} className={classes.root}>
+      <div className={classes.left}>
+        <QuestionNumber currentQuestionIndex={currentQuestionIndex} />
+        <QuestionNav
+          currentQuestionIndex={currentQuestionIndex}
+          changeCurrentQuestion={handleQuestionChange}
+        />
+      </div>
+      <div className={classes.middle}>
+        <Question
+          currentQuestionInfo="info"
+          currentQuestionAnswers={[]}
+          currentQuestionIndex={currentQuestionIndex}
+          currentQuestionId={1}
+          changeAnswer={handleQuestionChange}
+          userAnswers={[]}
+          currentQuestionSubject="Subject"
+        />
+      </div>
+      <div className={classes.right}>
+        <div className={classes.bookmark}>
+          {!isQuestionMarked ? (
+            <Bookmark fontSize="large" />
+          ) : (
+            <BookmarkBorderIcon fontSize="large" />
+          )}
+        </div>
+        <QuestionNav
+          next
+          currentQuestionIndex={currentQuestionIndex}
+          changeCurrentQuestion={handleQuestionChange}
+        />
+      </div>
+    </Paper>
+  );
 };
 
 export default Exam;

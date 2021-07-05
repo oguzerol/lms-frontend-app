@@ -10,6 +10,7 @@ import {
 const UpcomingExamCard = () => {
   let { data, isLoading, error } = useUserExams();
   if (isLoading) return <Loading />;
+
   return (
     <div>
       {error && <Typography>Bir hata oluştu.</Typography>}

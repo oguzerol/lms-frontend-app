@@ -12,26 +12,21 @@ type CurrentQuestionAnswer = {
   content: String;
 };
 
-type UserAnswer = {
-  question_id: number;
-  answer_id: number;
-};
-
 const Question = ({
   currentQuestionInfo,
   currentQuestionAnswers,
   currentQuestionIndex,
   currentQuestionId,
   changeAnswer,
-  userAnswers,
+  userAnswer,
   currentQuestionContent,
 }: {
   currentQuestionInfo?: String;
-  currentQuestionAnswers: Array<CurrentQuestionAnswer>;
+  currentQuestionAnswers?: Array<CurrentQuestionAnswer>;
   currentQuestionIndex: number;
-  currentQuestionId: number;
+  currentQuestionId?: number;
   changeAnswer: Function;
-  userAnswers: Array<UserAnswer>;
+  userAnswer?: number;
   currentQuestionContent?: String;
 }) => {
   return (
@@ -42,7 +37,7 @@ const Question = ({
         currentQuestionAnswers={currentQuestionAnswers}
         currentQuestionIndex={currentQuestionIndex}
         changeAnswer={changeAnswer}
-        userAnswers={userAnswers}
+        userAnswer={userAnswer}
         currentQuestionId={currentQuestionId}
       />
     </Box>

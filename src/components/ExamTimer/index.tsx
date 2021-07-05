@@ -23,12 +23,12 @@ const ExamTimer = ({ endTime }: Props) => {
   const minutes = Math.trunc(duration.asMinutes() % 60);
 
   let remaingTime = "00:00";
-  if (moment(now).isBefore(endTime)) {
+  if (endTime && moment(now).isBefore(endTime)) {
     remaingTime = endTime
       ? `${hours < 10 ? "0" + hours : hours}:${
           minutes < 10 ? "0" + minutes : minutes
         }`
-      : ":";
+      : "00:00";
   }
   const classes = useStyles();
 

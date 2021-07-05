@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => {
       padding: "6px 20px",
       lineHeight: "1.50",
       "&:not(:last-child)": {
-        marginBottom: "20px",
+        marginBottom: "10px",
       },
       "&.MuiButton-text": {
         border: "1px solid transparent",

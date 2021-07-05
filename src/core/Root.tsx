@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Toaster } from "react-hot-toast";
@@ -62,6 +63,7 @@ const Root = () => {
               <AppRoute path={`*`} component={NotFound} privateRoute />
             </Switch>
           </Router>
+          <ReactQueryDevtools />
         </QueryClientProvider>
       </SocketProvider>
     </ThemeProvider>

@@ -2,9 +2,24 @@ import { UserExams } from "./../../types/exam";
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
+type Answer = {
+  label: String;
+  question_id: number;
+  id: number;
+  answer_id: number;
+  content: String;
+};
+
+export type UserAnswer = {
+  answer_id?: number;
+};
+
 type Question = {
+  id: number;
   info: String;
   content: String;
+  answers: Array<Answer>;
+  user_answers: UserAnswer;
 };
 
 type Exam = {

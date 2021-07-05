@@ -9,27 +9,19 @@ type CurrentQuestionAnswer = {
   content: String;
 };
 
-type UserAnswer = {
-  question_id: number;
-  answer_id: number;
-};
-
 const AnswerList = ({
   currentQuestionAnswers,
   currentQuestionIndex,
   currentQuestionId,
   changeAnswer,
-  userAnswers,
+  userAnswer,
 }: {
-  currentQuestionAnswers: Array<CurrentQuestionAnswer>;
+  currentQuestionAnswers?: Array<CurrentQuestionAnswer>;
   currentQuestionIndex: number;
-  currentQuestionId: number;
+  currentQuestionId?: number;
   changeAnswer: Function;
-  userAnswers: Array<UserAnswer>;
+  userAnswer?: number;
 }) => {
-  const currentQuestionSelectedAnswer =
-    userAnswers &&
-    userAnswers.find((answer) => answer.question_id === currentQuestionId);
   return !currentQuestionAnswers ? null : (
     <div>
       {currentQuestionAnswers.map((answer, item) => {
@@ -38,15 +30,12 @@ const AnswerList = ({
             key={answer.id}
             handleChange={() =>
               changeAnswer({
-                current_question_index: currentQuestionIndex,
-                question_id: currentQuestionId,
-                answer_id: answer.id,
+                questionIndex: currentQuestionIndex,
+                questionId: currentQuestionId,
+                answerId: answer.id,
               })
             }
-            isSelected={
-              currentQuestionSelectedAnswer &&
-              currentQuestionSelectedAnswer.answer_id === answer.id
-            }
+            isSelected={userAnswer === answer.id}
             label={answer.content}
             text={answerLabel[item]}
           />

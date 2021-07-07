@@ -1,22 +1,19 @@
 import clsx from "clsx";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import axios from "axios";
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
 
 import { Switch } from "@material-ui/core";
-import InputIcon from "@material-ui/icons/Input";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import { deleteAuth } from "../../../../redux/slices/auth";
-import { URL_DASHBOARD, URL_LOGIN } from "../../../../route/constants";
+import { Link } from "react-router-dom";
+import { URL_DASHBOARD } from "../../../../route/constants";
 import ydtLogoDark from "../../../../../assets/images/ydt_logo_dark.png";
 import ydtLogo from "../../../../../assets/images/ydt_logo.png";
 import { selectIsDarkTheme, toggleTheme } from "../../../../redux/slices/theme";
 
 import ExamTimer from "../../../../../components/ExamTimer";
+import ExamFinish from "../../../../../components/ExamFinish";
 import { selectEndTime } from "../../../../redux/slices/exam";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -65,7 +62,6 @@ const Topbar = () => {
   const dispatch = useDispatch();
   const isDarkTheme = useSelector(selectIsDarkTheme);
   const examEndTime = useSelector(selectEndTime);
-  const history = useHistory();
 
   const classes = useStyles();
 
@@ -73,13 +69,6 @@ const Topbar = () => {
     const currentTheme = isDarkTheme ? "light" : "dark";
     localStorage.setItem("theme", currentTheme);
     dispatch(toggleTheme(currentTheme));
-  };
-
-  const handleLogout = () => {
-    dispatch(deleteAuth());
-    localStorage.removeItem("token");
-    axios.defaults.headers.common.token = null;
-    history.replace(URL_LOGIN);
   };
 
   return (
@@ -97,21 +86,14 @@ const Topbar = () => {
           />
         </Link>
         <div className={classes.flexGrow} />
-        <ExamTimer endTime={examEndTime} />
         <Switch
           checked={isDarkTheme}
           onChange={handleThemeChange}
           color="secondary"
           inputProps={{ "aria-label": "primary checkbox" }}
         />
-        <IconButton
-          color="inherit"
-          className={classes.logoutIcon}
-          onClick={handleLogout}
-          disableRipple
-        >
-          <InputIcon />
-        </IconButton>
+        <ExamTimer endTime={examEndTime} />
+        <ExamFinish examId={1} />
       </Toolbar>
     </AppBar>
   );

@@ -95,7 +95,8 @@ const Topbar = () => {
         toastError(`Bir hata ${error.response.data.message}`);
       },
       onSuccess: () => {
-        queryClient.invalidateQueries("UserExams");
+        queryClient.invalidateQueries("UserExams_undone");
+        queryClient.invalidateQueries("UserExams_done");
         history.push(URL_MY_EXAMS);
       },
     }

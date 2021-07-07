@@ -19,7 +19,7 @@ import { URL_EXAM } from "../../core/route/constants";
 
 export default function StandAloneExams() {
   const history = useHistory();
-  let { data, isLoading, error } = useUserExams();
+  let { data, isLoading, error } = useUserExams("undone");
 
   const startExam = (id: number) => {
     axios

@@ -1,17 +1,21 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import axios from "axios";
+
 import { Paper, makeStyles, Grid } from "@material-ui/core";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import Bookmark from "@material-ui/icons/Bookmark";
 
 import { useSocket } from "../../core/contexts/socket";
-import { toastLocalDebug } from "../../core/utils/toaster";
+import { toastError, toastLocalDebug } from "../../core/utils/toaster";
 import QuestionNumber from "../../components/QuestionNumber";
 import QuestionNav from "../../components/QuestionNav";
 import Question from "../../components/Question";
 import QuickView from "../../components/QuickView";
 import useUserExam from "../../core/querys/useUserExam";
 import { UserExams } from "../../core/types/exam";
+import { API_USER_ANSWER } from "../../core/route/constants";
+import { useMutation, useQueryClient } from "react-query";
 
 type Answer = {
   label: String;
@@ -34,6 +38,8 @@ type QuestionType = {
 };
 
 type ExamType = {
+  description: String;
+  name: String;
   user_exams: UserExams;
   questions: Array<QuestionType>;
 };
@@ -85,6 +91,7 @@ const useStyles = makeStyles((theme) => {
 });
 
 const Exam = () => {
+  const queryClient = useQueryClient();
   const socket = useSocket();
   const classes = useStyles();
   const { examId }: { examId?: String } = useParams();
@@ -93,19 +100,61 @@ const Exam = () => {
     data,
     isLoading,
     error,
-  }: { data?: Array<ExamType>; isLoading: any; error: any } =
-    useUserExam(examId);
-  const exam = data && data[0];
+  }: { data?: ExamType; isLoading: any; error: any } = useUserExam(examId);
+  const exam = data && data;
 
-  console.log(isLoading, error);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-  const [state, setState] = useReducer(
-    (currentState: {}, newState: { currentQuestionIndex: number }) => ({
-      ...currentState,
-      ...newState,
-    }),
+  const currentQuestionInfo = exam?.questions[currentQuestionIndex].info;
+  const currentQuestionContent = exam?.questions[currentQuestionIndex].content;
+  const currentQuestionAnswers = exam?.questions[currentQuestionIndex].answers;
+  const currentQuestionId = exam?.questions[currentQuestionIndex].id;
+  const currentQuestionUserAnswer =
+    exam?.questions[currentQuestionIndex].user_answers?.answer_id;
+
+  const answerMutation = useMutation(
+    ({
+      questionId,
+      answerId,
+    }: {
+      questionId: number;
+      answerId: number | null;
+    }) =>
+      axios.post(API_USER_ANSWER, {
+        question_id: questionId,
+        answer_id: answerId,
+      }),
     {
-      currentQuestionIndex: 0,
+      onMutate: async ({
+        questionId,
+        answerId,
+      }: {
+        questionId: number;
+        answerId: number | null;
+      }) => {
+        const currentQueries = `userExam_${examId}`;
+        // A mutation is about to happen!
+        await queryClient.cancelQueries(currentQueries);
+
+        const previousQueries = queryClient.getQueryData(currentQueries);
+
+        queryClient.setQueryData(currentQueries, (old: any) => {
+          return {
+            ...old,
+            questions: old.questions.map((question: any) =>
+              question.id === questionId
+                ? { ...question, user_answers: { answer_id: answerId } }
+                : question
+            ),
+          };
+        });
+
+        return { previousQueries };
+      },
+      onError: (error: any, variables, context: any) => {
+        toastError(`Bir hata ${error.response.data.message}`);
+        queryClient.setQueryData(`userExam_${examId}`, context.previousQueries);
+      },
     }
   );
 
@@ -130,7 +179,17 @@ const Exam = () => {
   const isQuestionMarked = 1;
 
   const handleQuestionChange = (id: number) => {
-    setState({ currentQuestionIndex: id });
+    setCurrentQuestionIndex(id);
+  };
+
+  const checkIsAlreadySelectedAnswer = ({
+    currentAnswerId,
+    answerId,
+  }: {
+    currentAnswerId?: number;
+    answerId: number;
+  }) => {
+    return currentAnswerId === answerId;
   };
 
   const handleChangeAnswer = ({
@@ -139,16 +198,16 @@ const Exam = () => {
   }: {
     questionId: number;
     answerId: number;
-  }) => {};
-
-  const { currentQuestionIndex } = state;
-
-  const currentQuestionInfo = exam?.questions[currentQuestionIndex].info;
-  const currentQuestionContent = exam?.questions[currentQuestionIndex].content;
-  const currentQuestionAnswers = exam?.questions[currentQuestionIndex].answers;
-  const currentQuestionId = exam?.questions[currentQuestionIndex].id;
-  const currentQuestionUserAnswer =
-    exam?.questions[currentQuestionIndex].user_answers?.answer_id;
+  }) => {
+    const isAnswerUncheck = checkIsAlreadySelectedAnswer({
+      currentAnswerId: currentQuestionUserAnswer,
+      answerId,
+    });
+    answerMutation.mutate({
+      questionId,
+      answerId: isAnswerUncheck ? null : answerId,
+    });
+  };
 
   const questionsWithAnswer = exam?.questions.map((question) => {
     return {

@@ -1,8 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import React from "react";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
 
 import {
   Button,
@@ -34,21 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function ExamFinish({ examId }: { examId: number }) {
+export default function ExamFinish({ finishExam }: { finishExam: any }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const history = useHistory();
-
-  const finishExam = () => {
-    axios
-      .post(`/api/me/exams/${examId}/end/`)
-      .then((res) => {
-        history.push("/sonuclar");
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -56,6 +42,10 @@ export default function ExamFinish({ examId }: { examId: number }) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleFinishExam = () => {
+    finishExam.mutate();
   };
 
   const body = (
@@ -72,7 +62,7 @@ export default function ExamFinish({ examId }: { examId: number }) {
             color="secondary"
             variant="contained"
             fullWidth
-            onClick={() => finishExam()}
+            onClick={handleFinishExam}
           >
             SINAVI BİTİRMEK İSTİYORUM
           </Button>

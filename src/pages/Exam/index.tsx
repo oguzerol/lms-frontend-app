@@ -66,16 +66,15 @@ const useStyles = makeStyles((theme) => {
 
 const Exam = () => {
   const queryClient = useQueryClient();
+  const { examId }: { examId?: String } = useParams();
   const socket = useSocket();
   const classes = useStyles();
-  const { examId }: { examId?: String } = useParams();
 
   const {
-    data,
+    data: exam,
     isLoading,
     error,
   }: { data?: ExamType; isLoading: any; error: any } = useUserExam(examId);
-  const exam = data && data;
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 

@@ -1,20 +1,28 @@
 import clsx from "clsx";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import axios from "axios";
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 
 import { Switch } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { URL_DASHBOARD } from "../../../../route/constants";
+import { Link, useHistory, useParams } from "react-router-dom";
+import {
+  API_USER_EXAMS,
+  URL_DASHBOARD,
+  URL_MY_EXAMS,
+} from "../../../../route/constants";
 import ydtLogoDark from "../../../../../assets/images/ydt_logo_dark.png";
 import ydtLogo from "../../../../../assets/images/ydt_logo.png";
 import { selectIsDarkTheme, toggleTheme } from "../../../../redux/slices/theme";
 
 import ExamTimer from "../../../../../components/ExamTimer";
 import ExamFinish from "../../../../../components/ExamFinish";
-import { selectEndTime } from "../../../../redux/slices/exam";
+import { useMutation, useQueryClient } from "react-query";
+import { ExamType } from "../../../../types/exam";
+import useUserExam from "../../../../querys/useUserExam";
+import { toastError } from "../../../../utils/toaster";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,9 +67,18 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Topbar = () => {
+  const queryClient = useQueryClient();
+  const { examId }: { examId?: String } = useParams();
+  const history = useHistory();
+
+  const { data: exam }: { data?: ExamType; isLoading: any; error: any } =
+    useUserExam(examId);
+
+  const examEndTime = exam?.user_exams.standalone_end_time;
+
+  console.log(exam);
   const dispatch = useDispatch();
   const isDarkTheme = useSelector(selectIsDarkTheme);
-  const examEndTime = useSelector(selectEndTime);
 
   const classes = useStyles();
 
@@ -70,6 +87,19 @@ const Topbar = () => {
     localStorage.setItem("theme", currentTheme);
     dispatch(toggleTheme(currentTheme));
   };
+
+  const finishExamMutation = useMutation(
+    () => axios.put(`${API_USER_EXAMS}/${examId}/end`),
+    {
+      onError: (error: any) => {
+        toastError(`Bir hata ${error.response.data.message}`);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries("UserExams");
+        history.push(URL_MY_EXAMS);
+      },
+    }
+  );
 
   return (
     <AppBar
@@ -93,7 +123,7 @@ const Topbar = () => {
           inputProps={{ "aria-label": "primary checkbox" }}
         />
         <ExamTimer endTime={examEndTime} />
-        <ExamFinish examId={1} />
+        <ExamFinish finishExam={finishExamMutation} />
       </Toolbar>
     </AppBar>
   );

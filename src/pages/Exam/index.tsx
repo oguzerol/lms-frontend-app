@@ -13,36 +13,10 @@ import QuestionNav from "../../components/QuestionNav";
 import Question from "../../components/Question";
 import QuickView from "../../components/QuickView";
 import useUserExam from "../../core/querys/useUserExam";
-import { UserExams } from "../../core/types/exam";
 import { API_USER_ANSWER } from "../../core/route/constants";
+import { ExamType } from "../../core/types/exam";
 import { useMutation, useQueryClient } from "react-query";
-
-type Answer = {
-  label: String;
-  question_id: number;
-  id: number;
-  answer_id: number;
-  content: String;
-};
-
-export type UserAnswer = {
-  answer_id?: number;
-};
-
-type QuestionType = {
-  id: number;
-  info: String;
-  content: String;
-  answers: Array<Answer>;
-  user_answers: UserAnswer;
-};
-
-type ExamType = {
-  description: String;
-  name: String;
-  user_exams: UserExams;
-  questions: Array<QuestionType>;
-};
+import Loading from "../../components/Loading";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -133,7 +107,6 @@ const Exam = () => {
         answerId: number | null;
       }) => {
         const currentQueries = `userExam_${examId}`;
-        // A mutation is about to happen!
         await queryClient.cancelQueries(currentQueries);
 
         const previousQueries = queryClient.getQueryData(currentQueries);
@@ -215,6 +188,10 @@ const Exam = () => {
       isSelected: !!question.user_answers?.answer_id,
     };
   });
+
+  if (isLoading) {
+    <Loading />;
+  }
 
   if (error) {
     return <div>{error.response.data.message}</div>;

@@ -16,3 +16,36 @@ export type UserExams = {
   deleted_at: null | Date;
   info: Exams;
 };
+
+export type Answer = {
+  label: String;
+  question_id: number;
+  id: number;
+  answer_id: number;
+  content: String;
+};
+
+export type UserAnswer = {
+  answer_id?: number;
+};
+
+export type QuestionType = {
+  id: number;
+  info: String;
+  content: String;
+  answers: Array<Answer>;
+  user_answers: UserAnswer;
+};
+
+export type ExamType = {
+  description: String;
+  name: String;
+  user_exams: UserExams;
+  questions: Array<QuestionType>;
+};
+
+export type CurrentQuestionAnswer = {
+  id: number;
+  answer_id: number;
+  content: String;
+};

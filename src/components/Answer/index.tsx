@@ -1,13 +1,6 @@
+import { CurrentQuestionAnswer } from "../../core/types/exam";
 import { answerLabel } from "../../core/utils/constants/exam";
 import Item from "./Item";
-
-// TODO mutliple types 0001
-
-type CurrentQuestionAnswer = {
-  id: number;
-  answer_id: number;
-  content: String;
-};
 
 const AnswerList = ({
   currentQuestionAnswers,

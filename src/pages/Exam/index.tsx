@@ -198,49 +198,53 @@ const Exam = () => {
 
   return (
     <Grid container spacing={3} className={classes.root}>
-      <Grid item sm={12} md={9} xl={10} className={classes.container}>
-        <Paper elevation={3} className={classes.paper}>
-          <div className={classes.left}>
-            <QuestionNumber currentQuestionIndex={currentQuestionIndex} />
-            <QuestionNav
-              currentQuestionIndex={currentQuestionIndex}
+      {exam && (
+        <>
+          <Grid item sm={12} md={9} xl={10} className={classes.container}>
+            <Paper elevation={3} className={classes.paper}>
+              <div className={classes.left}>
+                <QuestionNumber currentQuestionIndex={currentQuestionIndex} />
+                <QuestionNav
+                  currentQuestionIndex={currentQuestionIndex}
+                  changeCurrentQuestion={handleQuestionChange}
+                />
+              </div>
+              <div className={classes.middle}>
+                <Question
+                  currentQuestionInfo={currentQuestionInfo}
+                  currentQuestionAnswers={currentQuestionAnswers}
+                  currentQuestionIndex={currentQuestionIndex}
+                  currentQuestionId={currentQuestionId}
+                  currentQuestionContent={currentQuestionContent}
+                  changeAnswer={handleChangeAnswer}
+                  userAnswer={currentQuestionUserAnswer}
+                />
+              </div>
+              <div className={classes.right}>
+                <div className={classes.bookmark}>
+                  {!isQuestionMarked ? (
+                    <Bookmark fontSize="large" />
+                  ) : (
+                    <BookmarkBorderIcon fontSize="large" />
+                  )}
+                </div>
+                <QuestionNav
+                  next
+                  currentQuestionIndex={currentQuestionIndex}
+                  changeCurrentQuestion={handleQuestionChange}
+                />
+              </div>
+            </Paper>
+          </Grid>
+          <Grid item sm={12} md={3} xl={2}>
+            <QuickView
+              list={questionsWithAnswer}
               changeCurrentQuestion={handleQuestionChange}
+              questionsLength={80}
             />
-          </div>
-          <div className={classes.middle}>
-            <Question
-              currentQuestionInfo={currentQuestionInfo}
-              currentQuestionAnswers={currentQuestionAnswers}
-              currentQuestionIndex={currentQuestionIndex}
-              currentQuestionId={currentQuestionId}
-              currentQuestionContent={currentQuestionContent}
-              changeAnswer={handleChangeAnswer}
-              userAnswer={currentQuestionUserAnswer}
-            />
-          </div>
-          <div className={classes.right}>
-            <div className={classes.bookmark}>
-              {!isQuestionMarked ? (
-                <Bookmark fontSize="large" />
-              ) : (
-                <BookmarkBorderIcon fontSize="large" />
-              )}
-            </div>
-            <QuestionNav
-              next
-              currentQuestionIndex={currentQuestionIndex}
-              changeCurrentQuestion={handleQuestionChange}
-            />
-          </div>
-        </Paper>
-      </Grid>
-      <Grid item sm={12} md={3} xl={2}>
-        <QuickView
-          list={questionsWithAnswer}
-          changeCurrentQuestion={handleQuestionChange}
-          questionsLength={80}
-        />
-      </Grid>
+          </Grid>
+        </>
+      )}
     </Grid>
   );
 };

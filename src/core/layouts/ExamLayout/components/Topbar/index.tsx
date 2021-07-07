@@ -76,7 +76,6 @@ const Topbar = () => {
 
   const examEndTime = exam?.user_exams.standalone_end_time;
 
-  console.log(exam);
   const dispatch = useDispatch();
   const isDarkTheme = useSelector(selectIsDarkTheme);
 
@@ -123,8 +122,12 @@ const Topbar = () => {
           color="secondary"
           inputProps={{ "aria-label": "primary checkbox" }}
         />
-        <ExamTimer endTime={examEndTime} />
-        <ExamFinish finishExam={finishExamMutation} />
+        {exam && (
+          <>
+            <ExamTimer endTime={examEndTime} />
+            <ExamFinish finishExam={finishExamMutation} />
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );

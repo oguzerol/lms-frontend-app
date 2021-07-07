@@ -8,7 +8,7 @@ import {
 } from "../../core/route/constants";
 
 const UpcomingExamCard = () => {
-  let { data, isLoading, error } = useUserExams();
+  let { data, isLoading, error } = useUserExams("undone");
   if (isLoading) return <Loading />;
 
   return (

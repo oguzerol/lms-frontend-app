@@ -34,14 +34,14 @@ export type QuestionType = {
   info: String;
   content: String;
   answers: Array<Answer>;
-  user_answers: UserAnswer;
+  questions: Array<QuestionType>;
+  user_answer: UserAnswer;
 };
 
 export type ExamType = {
-  description: String;
-  name: String;
-  user_exams: UserExams;
-  questions: Array<QuestionType>;
+  id: number;
+  exam: { questions: Array<QuestionType> };
+  standalone_end_time: null | Date;
 };
 
 export type CurrentQuestionAnswer = {

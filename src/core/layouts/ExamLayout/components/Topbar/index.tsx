@@ -74,7 +74,7 @@ const Topbar = () => {
   const { data: exam }: { data?: ExamType; isLoading: any; error: any } =
     useUserExam(examId);
 
-  const examEndTime = exam?.user_exams.standalone_end_time;
+  const examEndTime = exam?.standalone_end_time;
 
   const dispatch = useDispatch();
   const isDarkTheme = useSelector(selectIsDarkTheme);

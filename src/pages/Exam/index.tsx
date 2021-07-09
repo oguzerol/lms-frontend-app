@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import axios from "axios";
 
 import { Paper, makeStyles, Grid } from "@material-ui/core";
@@ -13,7 +13,7 @@ import QuestionNav from "../../components/QuestionNav";
 import Question from "../../components/Question";
 import QuickView from "../../components/QuickView";
 import useUserExam from "../../core/querys/useUserExam";
-import { API_USER_ANSWER } from "../../core/route/constants";
+import { API_USER_ANSWER, URL_MY_EXAMS } from "../../core/route/constants";
 import { ExamType } from "../../core/types/exam";
 import { useMutation, useQueryClient } from "react-query";
 import Loading from "../../components/Loading";
@@ -66,24 +66,26 @@ const useStyles = makeStyles((theme) => {
 
 const Exam = () => {
   const queryClient = useQueryClient();
+  const history = useHistory();
   const { examId }: { examId?: String } = useParams();
   const socket = useSocket();
   const classes = useStyles();
 
   const {
-    data: exam,
+    data,
     isLoading,
     error,
   }: { data?: ExamType; isLoading: any; error: any } = useUserExam(examId);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
+  const exam = data?.exam;
   const currentQuestionInfo = exam?.questions[currentQuestionIndex].info;
   const currentQuestionContent = exam?.questions[currentQuestionIndex].content;
   const currentQuestionAnswers = exam?.questions[currentQuestionIndex].answers;
   const currentQuestionId = exam?.questions[currentQuestionIndex].id;
   const currentQuestionUserAnswer =
-    exam?.questions[currentQuestionIndex].user_answers?.answer_id;
+    exam?.questions[currentQuestionIndex].user_answer?.answer_id;
 
   const answerMutation = useMutation(
     ({
@@ -111,13 +113,17 @@ const Exam = () => {
         const previousQueries = queryClient.getQueryData(currentQueries);
 
         queryClient.setQueryData(currentQueries, (old: any) => {
+          console.log(old);
           return {
             ...old,
-            questions: old.questions.map((question: any) =>
-              question.id === questionId
-                ? { ...question, user_answers: { answer_id: answerId } }
-                : question
-            ),
+            exam: {
+              ...old.exam,
+              questions: old.exam.questions.map((question: any) =>
+                question.id === questionId
+                  ? { ...question, user_answer: { answer_id: answerId } }
+                  : question
+              ),
+            },
           };
         });
 
@@ -137,16 +143,15 @@ const Exam = () => {
 
     socket.on("end-exam", () => {
       toastLocalDebug("Socket'ten sınavı bitirme isteği geldi.");
-      // TODO: Find better place
-      // dispatch(deleteExam());
-      // history.push(URL_MY_EXAMS);
+      queryClient.removeQueries(`userExam_${examId}`);
+      history.push(URL_MY_EXAMS);
     });
 
     return () => {
       socket.off("end-exam");
       toastLocalDebug("Socket bağlantısı kapatıldı.");
     };
-  }, [socket]);
+  }, [socket, examId, queryClient, history]);
 
   const isQuestionMarked = 1;
 
@@ -184,7 +189,7 @@ const Exam = () => {
   const questionsWithAnswer = exam?.questions.map((question) => {
     return {
       question_id: question.id,
-      isSelected: !!question.user_answers?.answer_id,
+      isSelected: !!question.user_answer?.answer_id,
     };
   });
 

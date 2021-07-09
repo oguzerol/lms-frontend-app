@@ -3,7 +3,6 @@ import axios from "axios";
 import { API_ME } from "../route/constants";
 
 import authReducer, { authSlice } from "./slices/auth";
-import examReducer from "./slices/exam";
 import themeReducer from "./slices/theme";
 
 const { REACT_APP_API_BASE } = process.env;
@@ -33,7 +32,6 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     theme: themeReducer,
-    exam: examReducer,
   },
 });
 

@@ -11,7 +11,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import {
   API_USER_EXAMS,
   URL_DASHBOARD,
-  URL_MY_EXAMS,
+  URL_RESULTS,
 } from "../../../../route/constants";
 import ydtLogoDark from "../../../../../assets/images/ydt_logo_dark.png";
 import ydtLogo from "../../../../../assets/images/ydt_logo.png";
@@ -96,7 +96,7 @@ const Topbar = () => {
       onSuccess: () => {
         queryClient.invalidateQueries("UserExams_undone");
         queryClient.invalidateQueries("UserExams_done");
-        history.push(URL_MY_EXAMS);
+        history.push(URL_RESULTS);
       },
     }
   );

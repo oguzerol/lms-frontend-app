@@ -13,7 +13,7 @@ import QuestionNav from "../../components/QuestionNav";
 import Question from "../../components/Question";
 import QuickView from "../../components/QuickView";
 import useUserExam from "../../core/querys/useUserExam";
-import { API_USER_ANSWER, URL_MY_EXAMS } from "../../core/route/constants";
+import { API_USER_ANSWER, URL_RESULTS } from "../../core/route/constants";
 import { ExamType } from "../../core/types/exam";
 import { useMutation, useQueryClient } from "react-query";
 import Loading from "../../components/Loading";
@@ -148,7 +148,7 @@ const Exam = () => {
     socket.on("end-exam", () => {
       toastLocalDebug("Socket'ten sınavı bitirme isteği geldi.");
       queryClient.removeQueries(`userExam_${examId}`);
-      history.push(URL_MY_EXAMS);
+      history.push(URL_RESULTS);
     });
 
     return () => {

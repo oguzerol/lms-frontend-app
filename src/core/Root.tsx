@@ -14,6 +14,7 @@ import {
   URL_EXAM,
   URL_LOGIN,
   URL_MY_EXAMS,
+  URL_RESULTS,
 } from "./route/constants";
 import { selectTheme } from "./redux/slices/theme";
 import { SocketProvider } from "./contexts/socket";
@@ -26,6 +27,7 @@ import Exam from "../pages/Exam";
 
 import "../assets/fonts.css";
 import ExamLayout from "./layouts/ExamLayout";
+import Results from "../pages/Results";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +51,12 @@ const Root = () => {
               <AppRoute
                 path={URL_MY_EXAMS}
                 component={MyExams}
+                privateRoute
+                layout={AppLayout}
+              />
+              <AppRoute
+                path={URL_RESULTS}
+                component={Results}
                 privateRoute
                 layout={AppLayout}
               />

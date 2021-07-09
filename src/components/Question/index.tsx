@@ -8,7 +8,7 @@ import { CurrentQuestionAnswer } from "../../core/types/exam";
 const Question = ({
   currentQuestionInfo,
   currentQuestionAnswers,
-  currentQuestionIndex,
+  currentExamId,
   currentQuestionId,
   changeAnswer,
   userAnswer,
@@ -16,7 +16,7 @@ const Question = ({
 }: {
   currentQuestionInfo?: String;
   currentQuestionAnswers?: Array<CurrentQuestionAnswer>;
-  currentQuestionIndex: number;
+  currentExamId?: String;
   currentQuestionId?: number;
   changeAnswer: Function;
   userAnswer?: number;
@@ -28,7 +28,7 @@ const Question = ({
       <Content currentQuestionContent={currentQuestionContent} />
       <Answer
         currentQuestionAnswers={currentQuestionAnswers}
-        currentQuestionIndex={currentQuestionIndex}
+        currentExamId={currentExamId}
         changeAnswer={changeAnswer}
         userAnswer={userAnswer}
         currentQuestionId={currentQuestionId}

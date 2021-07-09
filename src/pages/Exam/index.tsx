@@ -91,19 +91,24 @@ const Exam = () => {
     ({
       questionId,
       answerId,
+      examId,
     }: {
+      examId?: number;
       questionId: number;
       answerId: number | null;
     }) =>
       axios.post(API_USER_ANSWER, {
+        exam_id: examId,
         question_id: questionId,
         answer_id: answerId,
       }),
     {
       onMutate: async ({
+        examId,
         questionId,
         answerId,
       }: {
+        examId?: number;
         questionId: number;
         answerId: number | null;
       }) => {
@@ -113,7 +118,6 @@ const Exam = () => {
         const previousQueries = queryClient.getQueryData(currentQueries);
 
         queryClient.setQueryData(currentQueries, (old: any) => {
-          console.log(old);
           return {
             ...old,
             exam: {
@@ -170,9 +174,11 @@ const Exam = () => {
   };
 
   const handleChangeAnswer = ({
+    examId,
     questionId,
     answerId,
   }: {
+    examId: number;
     questionId: number;
     answerId: number;
   }) => {
@@ -181,6 +187,7 @@ const Exam = () => {
       answerId,
     });
     answerMutation.mutate({
+      examId,
       questionId,
       answerId: isAnswerUncheck ? null : answerId,
     });
@@ -218,7 +225,7 @@ const Exam = () => {
                 <Question
                   currentQuestionInfo={currentQuestionInfo}
                   currentQuestionAnswers={currentQuestionAnswers}
-                  currentQuestionIndex={currentQuestionIndex}
+                  currentExamId={examId}
                   currentQuestionId={currentQuestionId}
                   currentQuestionContent={currentQuestionContent}
                   changeAnswer={handleChangeAnswer}

@@ -4,13 +4,13 @@ import Item from "./Item";
 
 const AnswerList = ({
   currentQuestionAnswers,
-  currentQuestionIndex,
+  currentExamId,
   currentQuestionId,
   changeAnswer,
   userAnswer,
 }: {
   currentQuestionAnswers?: Array<CurrentQuestionAnswer>;
-  currentQuestionIndex: number;
+  currentExamId?: String;
   currentQuestionId?: number;
   changeAnswer: Function;
   userAnswer?: number;
@@ -23,7 +23,7 @@ const AnswerList = ({
             key={answer.id}
             handleChange={() =>
               changeAnswer({
-                questionIndex: currentQuestionIndex,
+                examId: currentExamId,
                 questionId: currentQuestionId,
                 answerId: answer.id,
               })

@@ -5,9 +5,14 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import { URL_DASHBOARD, URL_MY_EXAMS } from "../../../../route/constants";
+import {
+  URL_DASHBOARD,
+  URL_MY_EXAMS,
+  URL_RESULTS,
+} from "../../../../route/constants";
 import HomeIcon from "@material-ui/icons/Home";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import HistoryIcon from "@material-ui/icons/History";
 import { NavLink } from "react-router-dom";
 
 type Props = {
@@ -100,6 +105,12 @@ const pages = [
     title: "Sınavlar",
     href: URL_MY_EXAMS,
     icon: <AssignmentIcon />,
+  },
+  {
+    id: 1,
+    title: "Sonuçlar",
+    href: URL_RESULTS,
+    icon: <HistoryIcon />,
   },
 ];
 

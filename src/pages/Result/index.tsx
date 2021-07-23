@@ -7,7 +7,7 @@ import QuestionNumber from "../../components/QuestionNumber";
 import QuestionNav from "../../components/QuestionNav";
 import Question from "../../components/Question";
 import QuickView from "../../components/QuickView";
-import useUserExamResult from "../../core/querys/useUserExamResult";
+import useUserResult from "../../core/querys/useUserResult";
 import { ExamType } from "../../core/types/exam";
 import Loading from "../../components/Loading";
 
@@ -65,8 +65,7 @@ const Result = () => {
     data,
     isLoading,
     error,
-  }: { data?: ExamType; isLoading: any; error: any } =
-    useUserExamResult(examId);
+  }: { data?: ExamType; isLoading: any; error: any } = useUserResult(examId);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
@@ -83,9 +82,13 @@ const Result = () => {
   };
 
   const questionsWithAnswer = exam?.questions.map((question) => {
+    const correctAnswer = question.answers.find(
+      (answer) => answer.is_correct === true
+    );
     return {
       question_id: question.id,
-      isSelected: !!question.user_answer?.answer_id,
+      userAnswerId: question.user_answer?.answer_id,
+      correctAnswerId: correctAnswer?.id,
     };
   });
 

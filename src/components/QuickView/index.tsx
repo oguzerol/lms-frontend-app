@@ -1,4 +1,5 @@
 import { Paper, makeStyles, Button, Grid } from "@material-ui/core";
+import cn from "classnames";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -24,7 +25,17 @@ const useStyles = makeStyles((theme) => {
     },
     answered: {
       background: theme.palette.grey[800],
-      color: theme.palette.secondary.contrastText,
+    },
+    correct: {
+      backgroundColor: theme.palette.success.dark,
+    },
+    wrong: {
+      backgroundColor: theme.palette.error.dark,
+    },
+    empty: {
+      backgroundColor: `${
+        theme.palette.type === "dark" ? "#68582e" : "#cdac56"
+      }`,
     },
     buttonWrapper: {
       textAlign: "center",
@@ -35,7 +46,8 @@ const useStyles = makeStyles((theme) => {
 
 type List = {
   question_id: number;
-  isSelected: boolean;
+  userAnswerId?: number;
+  correctAnswerId?: number;
 };
 
 const QuickView = ({
@@ -53,6 +65,9 @@ const QuickView = ({
       <Grid container className={classes.container}>
         {list &&
           list.map((answer, index) => {
+            let isCorrectAnswerGiven =
+              typeof answer.correctAnswerId !== "undefined";
+
             return (
               <Grid
                 item
@@ -62,8 +77,19 @@ const QuickView = ({
               >
                 <Button
                   onClick={() => changeCurrentQuestion(index)}
-                  className={answer.isSelected ? classes.answered : ""}
-                  variant={answer.isSelected ? "outlined" : "text"}
+                  className={cn({
+                    [classes.answered]: answer.userAnswerId,
+                    [classes.correct]:
+                      isCorrectAnswerGiven &&
+                      answer.userAnswerId === answer.correctAnswerId,
+                    [classes.wrong]:
+                      isCorrectAnswerGiven &&
+                      answer.userAnswerId !== answer.correctAnswerId,
+
+                    [classes.empty]:
+                      isCorrectAnswerGiven && !answer.userAnswerId,
+                  })}
+                  variant={answer.userAnswerId ? "outlined" : "text"}
                 >
                   {index + 1}
                 </Button>

@@ -1,4 +1,5 @@
 import { makeStyles, Button } from "@material-ui/core";
+import cn from "classnames";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -22,6 +23,21 @@ const useStyles = makeStyles((theme) => {
         color: theme.palette.info.contrastText,
       },
     },
+    isSelected: {
+      backgroundColor:
+        theme.palette.type === "dark"
+          ? "rgba(255, 255, 255, 0.08)!important"
+          : "",
+    },
+    correct: {
+      backgroundColor: `${theme.palette.success.dark} !important`,
+      color: theme.palette.info.contrastText,
+    },
+    empty: {
+      backgroundColor: `${
+        theme.palette.type === "dark" ? "#68582e" : "#cdac56"
+      }!important`,
+    },
 
     icon: {
       paddingRight: "25px",
@@ -35,18 +51,28 @@ const Answer = ({
   handleChange,
   isSelected,
   text,
+  isCorrect,
   label,
+  userAnswer,
 }: {
   handleChange: Function;
   isSelected?: Boolean;
+  isCorrect?: Boolean;
   text: String;
   label: String;
+  userAnswer?: number;
 }) => {
   const classes = useStyles();
 
+  let isCorrectAnswerGiven = typeof isCorrect === "boolean";
+
   return (
     <Button
-      className={classes.root}
+      className={cn(classes.root, {
+        [classes.correct]: isCorrectAnswerGiven && isCorrect,
+        [classes.isSelected]: isSelected,
+        [classes.empty]: isCorrectAnswerGiven && !userAnswer && isCorrect,
+      })}
       onClick={() => handleChange()}
       variant={isSelected ? "outlined" : "text"}
     >

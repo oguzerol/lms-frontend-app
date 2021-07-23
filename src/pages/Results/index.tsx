@@ -9,14 +9,14 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
 import { UserExams } from "../../core/types/exam";
-import useUserExams from "../../core/querys/useUserExams";
 import Loading from "../../components/Loading";
 import { useHistory } from "react-router";
 import { URL_RESULTS } from "../../core/route/constants";
+import useUserResults from "../../core/querys/useUserResults";
 
 export default function Results() {
   const history = useHistory();
-  let { data, isLoading, error } = useUserExams("done");
+  let { data, isLoading, error } = useUserResults();
 
   const goToResultDetail = (id: number) => {
     history.push(`${URL_RESULTS}/${id}`);

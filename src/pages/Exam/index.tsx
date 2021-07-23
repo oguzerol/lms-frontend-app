@@ -196,7 +196,7 @@ const Exam = () => {
   const questionsWithAnswer = exam?.questions.map((question) => {
     return {
       question_id: question.id,
-      isSelected: !!question.user_answer?.answer_id,
+      userAnswerId: question.user_answer?.answer_id,
     };
   });
 

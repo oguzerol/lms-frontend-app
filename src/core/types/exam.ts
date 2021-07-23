@@ -23,6 +23,7 @@ export type Answer = {
   id: number;
   answer_id: number;
   content: String;
+  is_correct: Boolean;
 };
 
 export type UserAnswer = {
@@ -48,4 +49,5 @@ export type CurrentQuestionAnswer = {
   id: number;
   answer_id: number;
   content: String;
+  is_correct?: Boolean;
 };

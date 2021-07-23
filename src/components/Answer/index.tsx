@@ -29,6 +29,8 @@ const AnswerList = ({
                 answerId: answer.id,
               })
             }
+            userAnswer={userAnswer}
+            isCorrect={answer.is_correct}
             isSelected={userAnswer === answer.id}
             label={answer.content}
             text={answerLabel[item]}

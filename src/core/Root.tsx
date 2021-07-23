@@ -24,6 +24,7 @@ import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
 import MyExams from "../pages/MyExams";
 import Exam from "../pages/Exam";
+import Result from "../pages/Result";
 
 import "../assets/fonts.css";
 import ExamLayout from "./layouts/ExamLayout";
@@ -49,12 +50,14 @@ const Root = () => {
                 layout={AppLayout}
               />
               <AppRoute
+                exact
                 path={URL_MY_EXAMS}
                 component={MyExams}
                 privateRoute
                 layout={AppLayout}
               />
               <AppRoute
+                exact
                 path={URL_RESULTS}
                 component={Results}
                 privateRoute
@@ -64,6 +67,13 @@ const Root = () => {
                 exact
                 path={`${URL_EXAM}/:examId`}
                 component={Exam}
+                privateRoute
+                layout={ExamLayout}
+              />
+              <AppRoute
+                exact
+                path={`${URL_RESULTS}/:examId`}
+                component={Result}
                 privateRoute
                 layout={ExamLayout}
               />

@@ -12,7 +12,7 @@ const AnswerList = ({
   currentQuestionAnswers?: Array<CurrentQuestionAnswer>;
   currentExamId?: String;
   currentQuestionId?: number;
-  changeAnswer: Function;
+  changeAnswer?: Function;
   userAnswer?: number;
 }) => {
   return !currentQuestionAnswers ? null : (
@@ -22,6 +22,7 @@ const AnswerList = ({
           <Item
             key={answer.id}
             handleChange={() =>
+              changeAnswer &&
               changeAnswer({
                 examId: currentExamId,
                 questionId: currentQuestionId,

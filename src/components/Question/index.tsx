@@ -18,7 +18,7 @@ const Question = ({
   currentQuestionAnswers?: Array<CurrentQuestionAnswer>;
   currentExamId?: String;
   currentQuestionId?: number;
-  changeAnswer: Function;
+  changeAnswer?: Function;
   userAnswer?: number;
   currentQuestionContent?: String;
 }) => {

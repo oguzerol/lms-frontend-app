@@ -14,10 +14,11 @@ import { Exams as ExamsType } from "../../core/types/exam";
 import Loading from "../../components/Loading";
 import { toastError } from "../../core/utils/toaster";
 import { useHistory } from "react-router";
-import { URL_EXAM } from "../../core/route/constants";
+import { API_EXAMS, URL_MY_EXAMS } from "../../core/route/constants";
 import useExams from "../../core/querys/useExams";
 
 import ydtImage from "../../assets/images/ucretsiz-eyds.jpg";
+import { useMutation, useQueryClient } from "react-query";
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -31,16 +32,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Exams() {
   const classes = useStyles();
+  const queryClient = useQueryClient();
   const history = useHistory();
   let { data, isLoading, error } = useExams();
 
-  const startExam = (id: number) => {
-    axios
-      .put(`user/exams/${id}/start`)
-      .then((res) => history.push(`${URL_EXAM}/${id}`))
-      .catch((err) => {
-        toastError(`Sınava başlanamadı. ${err.response.data.error}`);
-      });
+  const enrollExamMutation = useMutation(
+    (examId: number) => axios.post(`${API_EXAMS}/${examId}/enroll`),
+    {
+      onError: (error: any) => {
+        toastError(`${error.response.data.message}`);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries("UserExams");
+        history.push(URL_MY_EXAMS);
+      },
+    }
+  );
+
+  const handleEnroll = (examId: number) => {
+    enrollExamMutation.mutate(examId);
   };
 
   if (error) return <Typography>Bir hata oluştu.</Typography>;
@@ -76,7 +86,7 @@ export default function Exams() {
                 </Typography>
                 <CardActions className={classes.cardActions} disableSpacing>
                   <Button
-                    onClick={() => startExam(exam.id)}
+                    onClick={() => handleEnroll(exam.id)}
                     size="small"
                     color="primary"
                     variant="outlined"

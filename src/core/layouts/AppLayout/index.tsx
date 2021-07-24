@@ -13,8 +13,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       [theme.breakpoints.up("sm")]: {
+        height: "calc(100vh - 67px)",
         marginTop: 67,
       },
+      height: "calc(100vh - 58px)",
+      overflowY: "auto",
       marginTop: 58,
       flexGrow: 1,
       padding: theme.spacing(3),

@@ -10,7 +10,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
-import { Exams } from "../../core/types/exam";
+import { Exams as ExamsType } from "../../core/types/exam";
 import Loading from "../../components/Loading";
 import { toastError } from "../../core/utils/toaster";
 import { useHistory } from "react-router";
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function StandAloneExams() {
+export default function Exams() {
   const classes = useStyles();
   const history = useHistory();
   let { data, isLoading, error } = useExams();
@@ -43,14 +43,13 @@ export default function StandAloneExams() {
       });
   };
 
-  console.log(data);
   if (error) return <Typography>Bir hata oluştu.</Typography>;
   if (isLoading) return <Loading />;
 
   return data && data.length ? (
     <Container>
       <Grid container spacing={3}>
-        {data.map((exam: Exams) => (
+        {data.map((exam: ExamsType) => (
           <Grid item xs={12} sm={3} key={exam.id}>
             <Card>
               <CardMedia

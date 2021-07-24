@@ -14,6 +14,7 @@ import {
   URL_EXAM,
   URL_LOGIN,
   URL_MY_EXAMS,
+  URL_EXAMS,
   URL_RESULTS,
 } from "./route/constants";
 import { selectTheme } from "./redux/slices/theme";
@@ -25,10 +26,11 @@ import NotFound from "../pages/NotFound";
 import MyExams from "../pages/MyExams";
 import Exam from "../pages/Exam";
 import Result from "../pages/Result";
-
-import "../assets/fonts.css";
 import ExamLayout from "./layouts/ExamLayout";
 import Results from "../pages/Results";
+import Products from "../pages/Exams";
+
+import "../assets/fonts.css";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +48,13 @@ const Root = () => {
                 exact
                 path={URL_DASHBOARD}
                 component={Dashboard}
+                privateRoute
+                layout={AppLayout}
+              />
+              <AppRoute
+                exact
+                path={`${URL_EXAMS}`}
+                component={Products}
                 privateRoute
                 layout={AppLayout}
               />
@@ -77,6 +86,7 @@ const Root = () => {
                 privateRoute
                 layout={ExamLayout}
               />
+
               <AppRoute path={URL_LOGIN} component={Login} />
               <AppRoute path={`*`} component={NotFound} privateRoute />
             </Switch>

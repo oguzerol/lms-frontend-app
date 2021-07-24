@@ -8,10 +8,12 @@ import ListItemText from "@material-ui/core/ListItemText";
 import {
   URL_DASHBOARD,
   URL_MY_EXAMS,
+  URL_EXAMS,
   URL_RESULTS,
 } from "../../../../route/constants";
 import HomeIcon from "@material-ui/icons/Home";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import StorefrontIcon from "@material-ui/icons/Storefront";
 import HistoryIcon from "@material-ui/icons/History";
 import { NavLink } from "react-router-dom";
 
@@ -83,6 +85,9 @@ const useStyles = makeStyles((theme: Theme) =>
         fontWeight: theme.typography.fontWeightBold,
       },
     },
+    title: {
+      fontWeight: "bold",
+    },
   })
 );
 
@@ -107,10 +112,16 @@ const pages = [
     icon: <AssignmentIcon />,
   },
   {
-    id: 1,
+    id: 2,
     title: "Sonuçlar",
     href: URL_RESULTS,
     icon: <HistoryIcon />,
+  },
+  {
+    id: 3,
+    title: "Sınav Satın Al",
+    href: URL_EXAMS,
+    icon: <StorefrontIcon />,
   },
 ];
 
@@ -143,7 +154,7 @@ const SideBar = ({ open }: Props) => {
               activeClassName={classes.active}
             >
               <ListItemIcon>{page.icon}</ListItemIcon>
-              <ListItemText primary={page.title} />
+              <ListItemText className={classes.title} primary={page.title} />
             </NavLink>
           </ListItem>
         ))}

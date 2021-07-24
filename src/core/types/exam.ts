@@ -2,6 +2,8 @@
 export type Exams = {
   id: number;
   name: string;
+  description?: string;
+  price?: string;
 };
 
 export type UserExams = {

@@ -2,10 +2,7 @@ import useUserExams from "../../core/querys/useUserExams";
 import Loading from "../Loading";
 import { Box, Button, Typography } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
-import {
-  URL_MY_EXAMS,
-  URL_PURCHASABLE_EXAMS,
-} from "../../core/route/constants";
+import { URL_MY_EXAMS, URL_EXAMS } from "../../core/route/constants";
 
 const UpcomingExamCard = () => {
   let { data, isLoading, error } = useUserExams();
@@ -30,7 +27,7 @@ const UpcomingExamCard = () => {
           </Typography>
           <Button
             component={RouterLink}
-            to={data.length === 0 ? URL_PURCHASABLE_EXAMS : URL_MY_EXAMS}
+            to={data.length === 0 ? URL_EXAMS : URL_MY_EXAMS}
             variant="outlined"
             color="secondary"
           >

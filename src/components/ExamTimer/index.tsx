@@ -4,10 +4,16 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import TimeItem from "./TimeItem";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "row",
+  },
+  currentTime: {
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "block",
+    },
   },
 }));
 
@@ -44,7 +50,9 @@ const ExamTimer = ({ endTime }: Props) => {
 
   return (
     <div className={classes.root}>
-      <TimeItem title="Saat" time={now.format("HH:mm")} />
+      <div className={classes.currentTime}>
+        <TimeItem title="Saat" time={now.format("HH:mm")} />
+      </div>
       <TimeItem title="Kalan Süre" time={remaingTime} />
     </div>
   );

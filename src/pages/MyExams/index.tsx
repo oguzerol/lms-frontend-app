@@ -64,10 +64,9 @@ export default function StandAloneExams() {
       </Table>
     </TableContainer>
   ) : (
-    <Typography variant="h4">
+    <Typography variant="h5">
       <Box textAlign="center">
-        Şu anda aktif olarak çözebileceğiniz bir sınav bulunmuyor. Hemen yeni
-        bir sınav satın alın
+        Şu anda aktif olarak çözebileceğiniz bir sınav bulunmuyor.
       </Box>
     </Typography>
   );

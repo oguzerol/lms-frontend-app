@@ -10,24 +10,27 @@ import QuickView from "../../components/QuickView";
 import useUserResult from "../../core/querys/useUserResult";
 import { ExamType } from "../../core/types/exam";
 import Loading from "../../components/Loading";
+import ResultCounts from "../../components/ResultCounts";
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme) => {
   return {
     root: {
       flexGrow: 1,
       height: "100%",
       justifyContent: "center",
       display: "flex",
-      padding: "20px 0",
       overflow: "hidden",
-      margin: 0,
     },
     paper: {
       width: "100%",
       display: "flex",
-      padding: "50px 0",
+      padding: "20px 0",
       height: "100%",
       overflowY: "auto",
+
+      [theme.breakpoints.up("sm")]: {
+        padding: "50px 0",
+      },
       // TODO: windows custom scrollbar
     },
     left: {
@@ -46,12 +49,19 @@ const useStyles = makeStyles(() => {
       flexGrow: 1,
     },
     bookmark: {
+      display: "none",
+      [theme.breakpoints.up("md")]: {
+        display: "block",
+      },
       position: "absolute",
       top: 0,
       right: "15px",
     },
     container: {
       display: "flex",
+      [theme.breakpoints.up("md")]: {
+        paddingRight: 20,
+      },
       height: "100%",
     },
   };
@@ -90,6 +100,22 @@ const Result = () => {
       userAnswerId: question.user_answer?.answer_id,
       correctAnswerId: correctAnswer?.id,
     };
+  });
+
+  const resultsCount = {
+    correct: 0,
+    empty: 0,
+    wrong: 0,
+  };
+
+  questionsWithAnswer?.forEach((item) => {
+    if (typeof item.userAnswerId === "undefined") {
+      resultsCount.empty++;
+    } else if (item.userAnswerId === item.correctAnswerId) {
+      resultsCount.correct++;
+    } else {
+      resultsCount.wrong++;
+    }
   });
 
   if (isLoading) {
@@ -133,6 +159,11 @@ const Result = () => {
             </Paper>
           </Grid>
           <Grid item sm={12} md={3} xl={2}>
+            <ResultCounts
+              empty={resultsCount.empty}
+              wrong={resultsCount.wrong}
+              correct={resultsCount.correct}
+            />
             <QuickView
               list={questionsWithAnswer}
               changeCurrentQuestion={handleQuestionChange}

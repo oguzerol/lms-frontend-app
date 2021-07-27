@@ -1,6 +1,7 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import React from "react";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import {
   Button,
@@ -25,6 +26,9 @@ const useStyles = makeStyles((theme: Theme) =>
         outline: "none",
       },
     },
+    logout: {
+      whiteSpace: "nowrap",
+    },
     finishExam: {
       whiteSpace: "nowrap",
       marginTop: "30px",
@@ -33,6 +37,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function ExamFinish({ finishExam }: { finishExam: any }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -55,7 +62,7 @@ export default function ExamFinish({ finishExam }: { finishExam: any }) {
         <br />
         Bitirdiginiz takdirde tekrar baslayamayacaksiniz.
       </Typography>
-      <Grid container>
+      <Grid container spacing={isMobile ? 0 : 3}>
         <Grid item xs>
           <Button
             className={classes.finishExam}
@@ -83,8 +90,13 @@ export default function ExamFinish({ finishExam }: { finishExam: any }) {
 
   return (
     <div>
-      <Button color="secondary" variant="contained" onClick={handleOpen}>
-        SINAVI BİTİR
+      <Button
+        color="secondary"
+        variant="contained"
+        onClick={handleOpen}
+        className={classes.logout}
+      >
+        {!isMobile && "SINAVI"} BİTİR
       </Button>
       <Modal
         open={open}

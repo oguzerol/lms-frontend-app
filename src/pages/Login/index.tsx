@@ -87,7 +87,7 @@ const Login = () => {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h4">
           Giriş Yap
         </Typography>
       </Box>

@@ -3,10 +3,8 @@ import UpComingExam from "../../components/UpComingExam";
 
 const Dashboard = () => {
   return (
-    <Grid container spacing={2}>
-      <Grid item sm={12} md={5}>
-        <UpComingExam />
-      </Grid>
+    <Grid container>
+      <UpComingExam />
     </Grid>
   );
 };

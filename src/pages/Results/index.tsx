@@ -56,9 +56,9 @@ export default function Results() {
       </Table>
     </TableContainer>
   ) : (
-    <Typography variant="h4">
+    <Typography variant="h5">
       <Box textAlign="center">
-        Şu anda sonuçunu görüntüleyeceğiniz bir sınav bulunmamaktadır.
+        Şu anda sonucunu görüntüleyeceğiniz bir sınav bulunmamaktadır.
       </Box>
     </Typography>
   );

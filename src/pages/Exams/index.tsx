@@ -72,7 +72,7 @@ export default function Exams() {
                 <Typography
                   gutterBottom
                   variant="subtitle1"
-                  component="h5"
+                  component="h4"
                   align="center"
                 >
                   {exam.name}
@@ -101,10 +101,9 @@ export default function Exams() {
       </Grid>
     </Container>
   ) : (
-    <Typography variant="h4">
+    <Typography variant="h5">
       <Box textAlign="center">
-        Şu anda aktif olarak çözebileceğiniz bir sınav bulunmuyor. Hemen yeni
-        bir sınav satın alın
+        Şu anda aktif olarak çözebileceğiniz bir sınav bulunmuyor.
       </Box>
     </Typography>
   );

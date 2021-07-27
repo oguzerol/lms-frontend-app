@@ -27,6 +27,7 @@ import MyExams from "../pages/MyExams";
 import Exam from "../pages/Exam";
 import Result from "../pages/Result";
 import ExamLayout from "./layouts/ExamLayout";
+import ResultLayout from "./layouts/ResultLayout";
 import Results from "../pages/Results";
 import Products from "../pages/Exams";
 
@@ -84,7 +85,7 @@ const Root = () => {
                 path={`${URL_RESULTS}/:examId`}
                 component={Result}
                 privateRoute
-                layout={ExamLayout}
+                layout={ResultLayout}
               />
 
               <AppRoute path={URL_LOGIN} component={Login} />

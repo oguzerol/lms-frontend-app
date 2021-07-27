@@ -1,7 +1,17 @@
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
-import { IconButton } from "@material-ui/core";
+import { IconButton, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => {
+  return {
+    root: {
+      [theme.breakpoints.down("md")]: {
+        padding: "0",
+      },
+    },
+  };
+});
 
 const Nav = ({
   next = false,
@@ -12,6 +22,8 @@ const Nav = ({
   currentQuestionIndex: number;
   changeCurrentQuestion: Function;
 }) => {
+  const classes = useStyles();
+
   const handleClick = () => {
     const newQuestionNumber = next
       ? currentQuestionIndex + 1
@@ -21,7 +33,7 @@ const Nav = ({
     }
   };
   return (
-    <IconButton onClick={handleClick}>
+    <IconButton className={classes.root} onClick={handleClick}>
       {next ? (
         <ArrowForwardIcon fontSize="large" />
       ) : (

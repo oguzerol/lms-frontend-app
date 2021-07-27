@@ -25,7 +25,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const ExamLayout = ({ children }: Props) => {
+const ResultLayout = ({ children }: Props) => {
   const classes = useStyles();
 
   return (
@@ -40,8 +40,8 @@ const ExamLayout = ({ children }: Props) => {
   );
 };
 
-ExamLayout.propTypes = {
+ResultLayout.propTypes = {
   children: PropTypes.node,
 };
 
-export default ExamLayout;
+export default ResultLayout;

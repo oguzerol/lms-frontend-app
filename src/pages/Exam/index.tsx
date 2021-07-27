@@ -25,16 +25,18 @@ const useStyles = makeStyles((theme) => {
       height: "100%",
       justifyContent: "center",
       display: "flex",
-      padding: "20px 0",
       overflow: "hidden",
-      margin: 0,
     },
     paper: {
       width: "100%",
       display: "flex",
-      padding: "50px 0",
+      padding: "20px 0",
       height: "100%",
       overflowY: "auto",
+
+      [theme.breakpoints.up("sm")]: {
+        padding: "50px 0",
+      },
       // TODO: windows custom scrollbar
     },
     left: {
@@ -53,12 +55,19 @@ const useStyles = makeStyles((theme) => {
       flexGrow: 1,
     },
     bookmark: {
+      display: "none",
+      [theme.breakpoints.up("md")]: {
+        display: "block",
+      },
       position: "absolute",
       top: 0,
       right: "15px",
     },
     container: {
       display: "flex",
+      [theme.breakpoints.up("md")]: {
+        paddingRight: 20,
+      },
       height: "100%",
     },
   };
@@ -209,7 +218,7 @@ const Exam = () => {
   }
 
   return (
-    <Grid container spacing={3} className={classes.root}>
+    <Grid container className={classes.root}>
       {exam && (
         <>
           <Grid item sm={12} md={9} xl={10} className={classes.container}>

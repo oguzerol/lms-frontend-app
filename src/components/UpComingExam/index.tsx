@@ -14,7 +14,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       minHeight: "150px",
-      padding: theme.spacing(4),
+      display: "flex",
+      flexDirection: "column",
+      padding: "15px",
     },
   })
 );

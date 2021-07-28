@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => {
       display: "flex",
       alignItems: "center",
       paddingLeft: "12px",
-      marginBottom: "20px",
+      marginTop: "20px",
       flexDirection: "column",
     },
     box: {

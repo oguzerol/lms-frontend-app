@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     ydtLogo: {
       width: 70,
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("md")]: {
         width: 90,
       },
       height: "100%",
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
     toolbar: {
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("md")]: {
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
       },

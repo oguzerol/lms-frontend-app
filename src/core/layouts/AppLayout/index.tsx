@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: "100vh",
     },
     content: {
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("md")]: {
         height: "calc(100vh - 67px)",
         marginTop: 67,
       },

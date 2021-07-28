@@ -3,8 +3,8 @@ import { useHistory, useParams } from "react-router";
 import axios from "axios";
 
 import { Paper, makeStyles, Grid } from "@material-ui/core";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
-import Bookmark from "@material-ui/icons/Bookmark";
+// import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+// import Bookmark from "@material-ui/icons/Bookmark";
 
 import { useSocket } from "../../core/contexts/socket";
 import { toastError, toastLocalDebug } from "../../core/utils/toaster";
@@ -30,12 +30,12 @@ const useStyles = makeStyles((theme) => {
     paper: {
       width: "100%",
       display: "flex",
-      padding: "20px 0",
-      height: "100%",
+      padding: "10px 0",
       overflowY: "auto",
-
-      [theme.breakpoints.up("sm")]: {
+      height: "calc(100% - 58px)",
+      [theme.breakpoints.up("md")]: {
         padding: "50px 0",
+        height: "100%",
       },
       // TODO: windows custom scrollbar
     },
@@ -43,13 +43,19 @@ const useStyles = makeStyles((theme) => {
       display: "flex",
       alignItems: "center",
       position: "relative",
-      flexBasis: "64px",
+      minWidth: "40px",
+      [theme.breakpoints.up("md")]: {
+        minWidth: "64px",
+      },
     },
     right: {
       display: "flex",
       alignItems: "center",
-      flexBasis: "64px",
       position: "relative",
+      minWidth: "40px",
+      [theme.breakpoints.up("md")]: {
+        minWidth: "64px",
+      },
     },
     middle: {
       flexGrow: 1,
@@ -65,10 +71,18 @@ const useStyles = makeStyles((theme) => {
     },
     container: {
       display: "flex",
+      order: 2,
       [theme.breakpoints.up("md")]: {
         paddingRight: 20,
+        order: 1,
       },
       height: "100%",
+    },
+    quickView: {
+      order: 1,
+      [theme.breakpoints.up("md")]: {
+        order: 2,
+      },
     },
   };
 });
@@ -166,7 +180,7 @@ const Exam = () => {
     };
   }, [socket, examId, queryClient, history]);
 
-  const isQuestionMarked = 1;
+  // const isQuestionMarked = 1;
 
   const handleQuestionChange = (id: number) => {
     setCurrentQuestionIndex(id);
@@ -242,13 +256,13 @@ const Exam = () => {
                 />
               </div>
               <div className={classes.right}>
-                <div className={classes.bookmark}>
+                {/* <div className={classes.bookmark}>
                   {!isQuestionMarked ? (
                     <Bookmark fontSize="large" />
                   ) : (
                     <BookmarkBorderIcon fontSize="large" />
                   )}
-                </div>
+                </div> */}
                 <QuestionNav
                   next
                   currentQuestionIndex={currentQuestionIndex}
@@ -257,7 +271,7 @@ const Exam = () => {
               </div>
             </Paper>
           </Grid>
-          <Grid item sm={12} md={3} xl={2}>
+          <Grid item sm={12} md={3} xl={2} className={classes.quickView}>
             <QuickView
               list={questionsWithAnswer}
               changeCurrentQuestion={handleQuestionChange}

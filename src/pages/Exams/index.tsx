@@ -2,7 +2,6 @@ import axios from "axios";
 
 import Box from "@material-ui/core/Box";
 import { Typography } from "@material-ui/core";
-import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -57,49 +56,47 @@ export default function Exams() {
   if (isLoading) return <Loading />;
 
   return data && data.length ? (
-    <Container>
-      <Grid container spacing={3}>
-        {data.map((exam: ExamsType) => (
-          <Grid item xs={12} sm={3} key={exam.id}>
-            <Card>
-              <CardMedia
-                className={classes.media}
-                src={ydtImage}
-                component="img"
-                title="Ucretsiz E-YDS"
-              />
-              <CardContent>
-                <Typography
-                  gutterBottom
-                  variant="subtitle1"
-                  component="h4"
-                  align="center"
+    <Grid container spacing={3}>
+      {data.map((exam: ExamsType) => (
+        <Grid item xs={12} sm={3} xl={2} key={exam.id}>
+          <Card>
+            <CardMedia
+              className={classes.media}
+              src={ydtImage}
+              component="img"
+              title="Ucretsiz E-YDS"
+            />
+            <CardContent>
+              <Typography
+                gutterBottom
+                variant="subtitle1"
+                component="h4"
+                align="center"
+              >
+                {exam.name}
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                color="textSecondary"
+                component="p"
+              >
+                {exam.description}
+              </Typography>
+              <CardActions className={classes.cardActions} disableSpacing>
+                <Button
+                  onClick={() => handleEnroll(exam.id)}
+                  size="small"
+                  color="primary"
+                  variant="outlined"
                 >
-                  {exam.name}
-                </Typography>
-                <Typography
-                  variant="subtitle2"
-                  color="textSecondary"
-                  component="p"
-                >
-                  {exam.description}
-                </Typography>
-                <CardActions className={classes.cardActions} disableSpacing>
-                  <Button
-                    onClick={() => handleEnroll(exam.id)}
-                    size="small"
-                    color="primary"
-                    variant="outlined"
-                  >
-                    Satın Al {exam.price}
-                  </Button>
-                </CardActions>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+                  Satın Al {exam.price}
+                </Button>
+              </CardActions>
+            </CardContent>
+          </Card>
+        </Grid>
+      ))}
+    </Grid>
   ) : (
     <Typography variant="h5">
       <Box textAlign="center">

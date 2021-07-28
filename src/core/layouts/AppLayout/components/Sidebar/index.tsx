@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerOpen: {
       width: drawerWidth,
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("md")]: {
         marginTop: 67,
       },
       marginTop: 58,
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
       }),
     },
     drawerClose: {
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("md")]: {
         marginTop: 67,
       },
       marginTop: 58,

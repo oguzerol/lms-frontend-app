@@ -6,7 +6,9 @@ import { IconButton, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) => {
   return {
     root: {
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("sm")]: {
+        position: "absolute",
+        top: "calc(50% - 30px)",
         padding: "0",
       },
     },

@@ -6,7 +6,10 @@ const useStyles = makeStyles((theme) => {
     root: {
       display: "flex",
       alignItems: "center",
-      paddingLeft: "12px",
+      paddingLeft: 12,
+      [theme.breakpoints.down("sm")]: {
+        marginBottom: 10,
+      },
       "& button": {
         textAlign: "center",
         minWidth: "inherit",
@@ -22,9 +25,16 @@ const useStyles = makeStyles((theme) => {
     },
     container: {
       padding: "10px 0",
+      [theme.breakpoints.down("sm")]: {
+        padding: "10px 10px 0 10px",
+        flexWrap: "nowrap",
+        maxWidth: "calc(100vw - 32px)",
+        overflowY: "auto",
+      },
     },
     answered: {
       background: theme.palette.grey[800],
+      color: theme.palette.getContrastText(theme.palette.grey[800]),
     },
     correct: {
       backgroundColor: theme.palette.success.dark,

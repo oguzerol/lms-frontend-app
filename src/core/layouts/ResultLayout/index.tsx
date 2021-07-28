@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     maxWidth: "100vw",
     overflow: "hidden",
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("md")]: {
       padding: "84px 20px 20px",
     },
   },

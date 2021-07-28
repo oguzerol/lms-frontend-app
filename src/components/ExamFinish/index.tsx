@@ -57,7 +57,7 @@ export default function ExamFinish({ finishExam }: { finishExam: any }) {
 
   const body = (
     <div className={classes.paper}>
-      <Typography variant="h4">
+      <Typography variant="h5">
         Sinavi bitirmek istediginizden emin misiniz?
         <br />
         Bitirdiginiz takdirde tekrar baslayamayacaksiniz.

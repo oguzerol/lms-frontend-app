@@ -14,14 +14,18 @@ import Container from "@material-ui/core/Container";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import {
-  API_LOGIN,
+  API_REGISTER,
   URL_DASHBOARD,
-  URL_REGISTER,
+  URL_LOGIN,
 } from "../../core/route/constants";
-import { selectAuth, setAuth } from "../../core/redux/slices/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { selectAuth } from "../../core/redux/slices/auth";
+import { useSelector } from "react-redux";
 
 const validationSchema = yup.object({
+  username_: yup
+    .string()
+    .min(3, "Şifre en az üç karakterden oluşmalıdır.")
+    .required("Kullanıcı adı gerekli."),
   email: yup
     .string()
     .email("Geçerli bir email adresi giriniz.")
@@ -52,32 +56,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
+const Register = () => {
   const classes = useStyles();
   const history = useHistory();
   const { isAuthenticated } = useSelector(selectAuth);
-
-  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
+      username_: "",
       api: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values, { setErrors }) => {
       axios
-        .post(API_LOGIN, {
+        .post(API_REGISTER, {
           email: values.email,
           password: values.password,
+          username: values.username_,
         })
         .then((response) => {
-          axios.defaults.headers.common.token = response.data.token;
-          localStorage.setItem("token", response.data.token);
-
-          dispatch(setAuth(response.data.user));
-          history.replace(URL_DASHBOARD);
+          history.replace(URL_LOGIN);
         })
         .catch((err: any) => {
           setErrors({ api: err.response.data.message });
@@ -94,7 +94,7 @@ const Login = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h4">
-          Giriş Yap
+          Kayıt Ol
         </Typography>
       </Box>
       <form
@@ -104,6 +104,24 @@ const Login = () => {
         autoComplete="off"
       >
         <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              placeholder="Kullanıcı adınızı giriniz."
+              id="username_"
+              label="Kullanıcı Adınız"
+              name="username_"
+              autoComplete="off"
+              value={formik.values.username_}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.username_ && Boolean(formik.errors.username_)
+              }
+              helperText={formik.touched.username_ && formik.errors.username_}
+            />
+          </Grid>
           <Grid item xs={12}>
             <TextField
               variant="outlined"
@@ -152,17 +170,17 @@ const Login = () => {
           color="primary"
           className={classes.submit}
         >
-          Giriş Yap
+          Hesap Oluştur
         </Button>
         <Typography color="textSecondary" variant="body2" align="right">
-          Hesabın yok mu?{" "}
+          Hesabın var mi?{" "}
           <Link
             component={RouterLink}
-            to={URL_REGISTER}
+            to={URL_LOGIN}
             variant="body2"
             color="secondary"
           >
-            Üye ol
+            Giriş Yap
           </Link>
         </Typography>
       </form>
@@ -180,4 +198,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

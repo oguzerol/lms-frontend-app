@@ -41,10 +41,10 @@ const useStyles = makeStyles((theme: Theme) =>
       }),
     },
     drawerClose: {
-      [theme.breakpoints.up("md")]: {
-        marginTop: 67,
+      [theme.breakpoints.up("sm")]: {
+        marginTop: 66,
       },
-      marginTop: 58,
+      marginTop: 57,
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,

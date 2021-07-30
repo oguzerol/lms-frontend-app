@@ -13,6 +13,7 @@ import {
   URL_DASHBOARD,
   URL_EXAM,
   URL_LOGIN,
+  URL_REGISTER,
   URL_MY_EXAMS,
   URL_EXAMS,
   URL_RESULTS,
@@ -22,6 +23,7 @@ import { SocketProvider } from "./contexts/socket";
 
 import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
+import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
 import MyExams from "../pages/MyExams";
 import Exam from "../pages/Exam";
@@ -89,6 +91,7 @@ const Root = () => {
               />
 
               <AppRoute path={URL_LOGIN} component={Login} />
+              <AppRoute path={URL_REGISTER} component={Register} />
               <AppRoute path={`*`} component={NotFound} privateRoute />
             </Switch>
           </Router>

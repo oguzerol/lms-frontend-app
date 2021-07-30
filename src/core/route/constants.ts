@@ -2,6 +2,7 @@ export const URL_DASHBOARD = "/";
 
 export const URL_LOGIN = "/login";
 export const URL_REGISTER = "/register";
+export const URL_KVKK = "/kvkk";
 
 export const URL_MY_EXAMS = "/my-exams";
 export const URL_RESULTS = "/results";

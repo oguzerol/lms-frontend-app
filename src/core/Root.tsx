@@ -17,6 +17,7 @@ import {
   URL_MY_EXAMS,
   URL_EXAMS,
   URL_RESULTS,
+  URL_KVKK,
 } from "./route/constants";
 import { selectTheme } from "./redux/slices/theme";
 import { SocketProvider } from "./contexts/socket";
@@ -34,6 +35,7 @@ import Results from "../pages/Results";
 import Products from "../pages/Exams";
 
 import "../assets/fonts.css";
+import KVKK from "../pages/KVKK";
 
 const queryClient = new QueryClient();
 
@@ -91,6 +93,7 @@ const Root = () => {
               />
 
               <AppRoute path={URL_LOGIN} component={Login} />
+              <AppRoute path={URL_KVKK} component={KVKK} />
               <AppRoute path={URL_REGISTER} component={Register} />
               <AppRoute path={`*`} component={NotFound} privateRoute />
             </Switch>

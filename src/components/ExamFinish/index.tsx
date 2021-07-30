@@ -55,39 +55,6 @@ export default function ExamFinish({ finishExam }: { finishExam: any }) {
     finishExam.mutate();
   };
 
-  const body = (
-    <div className={classes.paper}>
-      <Typography variant="h5">
-        Sinavi bitirmek istediginizden emin misiniz?
-        <br />
-        Bitirdiginiz takdirde tekrar baslayamayacaksiniz.
-      </Typography>
-      <Grid container spacing={isMobile ? 0 : 3}>
-        <Grid item xs>
-          <Button
-            className={classes.finishExam}
-            color="secondary"
-            variant="contained"
-            fullWidth
-            onClick={handleFinishExam}
-          >
-            SINAVI BİTİRMEK İSTİYORUM
-          </Button>
-        </Grid>
-        <Grid item xs>
-          <Button
-            className={classes.finishExam}
-            variant="outlined"
-            fullWidth
-            onClick={handleClose}
-          >
-            VAZGEÇ
-          </Button>
-        </Grid>
-      </Grid>
-    </div>
-  );
-
   return (
     <div>
       <Button
@@ -104,7 +71,36 @@ export default function ExamFinish({ finishExam }: { finishExam: any }) {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        {body}
+        <div className={classes.paper}>
+          <Typography variant="h5">
+            Sinavi bitirmek istediginizden emin misiniz?
+            <br />
+            Bitirdiginiz takdirde tekrar baslayamayacaksiniz.
+          </Typography>
+          <Grid container spacing={isMobile ? 0 : 3}>
+            <Grid item xs>
+              <Button
+                className={classes.finishExam}
+                color="secondary"
+                variant="contained"
+                fullWidth
+                onClick={handleFinishExam}
+              >
+                SINAVI BİTİRMEK İSTİYORUM
+              </Button>
+            </Grid>
+            <Grid item xs>
+              <Button
+                className={classes.finishExam}
+                variant="outlined"
+                fullWidth
+                onClick={handleClose}
+              >
+                VAZGEÇ
+              </Button>
+            </Grid>
+          </Grid>
+        </div>
       </Modal>
     </div>
   );

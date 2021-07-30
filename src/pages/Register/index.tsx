@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link as RouterLink, Redirect, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
 import Avatar from "@material-ui/core/Avatar";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
@@ -20,6 +21,8 @@ import {
 } from "../../core/route/constants";
 import { selectAuth } from "../../core/redux/slices/auth";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import KVKK from "../../components/KVKK";
 
 const validationSchema = yup.object({
   username_: yup
@@ -54,12 +57,31 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  paperWrapper: {
+    position: "absolute",
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    top: "50%",
+    left: "50%",
+    maxHeight: "80vh",
+    transform: "translate(-50%, -50%)",
+    overflow: "auto",
+    padding: "50px",
+    "&:focus": {
+      outline: "none",
+    },
+  },
 }));
 
 const Register = () => {
+  const [isKVKKOpen, setIsKVKKOpen] = useState(false);
   const classes = useStyles();
   const history = useHistory();
   const { isAuthenticated } = useSelector(selectAuth);
+
+  const toggleKKVK = () => {
+    setIsKVKKOpen(!isKVKKOpen);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -76,7 +98,7 @@ const Register = () => {
           password: values.password,
           username: values.username_,
         })
-        .then((response) => {
+        .then(() => {
           history.replace(URL_LOGIN);
         })
         .catch((err: any) => {
@@ -184,6 +206,26 @@ const Register = () => {
           </Link>
         </Typography>
       </form>
+      <Box mt={2}>
+        <Typography variant="body2" color="textSecondary" align="center">
+          Devam ederek
+          <Button
+            variant="text"
+            disableRipple
+            disableFocusRipple
+            disableElevation
+            onClick={toggleKKVK}
+            style={{
+              textTransform: "capitalize",
+              backgroundColor: "transparent",
+              textDecoration: "underline",
+            }}
+          >
+            KVKK Aydınlatma Metni'ni
+          </Button>
+          okuduğunuzu kabul etmektesiniz.
+        </Typography>
+      </Box>
       <Box mt={5}>
         <Typography variant="body2" color="textSecondary" align="center">
           {"Copyright © "}
@@ -194,6 +236,19 @@ const Register = () => {
           {"."}
         </Typography>
       </Box>
+      <Modal
+        open={isKVKKOpen}
+        onClose={toggleKKVK}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div className={classes.paperWrapper}>
+          <KVKK />
+          <Button variant="outlined" fullWidth onClick={toggleKKVK}>
+            KAPAT
+          </Button>
+        </div>
+      </Modal>
     </Container>
   );
 };

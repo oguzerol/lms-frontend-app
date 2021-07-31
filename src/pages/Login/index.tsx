@@ -12,6 +12,8 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 import {
   API_LOGIN,
@@ -20,6 +22,9 @@ import {
 } from "../../core/route/constants";
 import { selectAuth, setAuth } from "../../core/redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { Modal } from "@material-ui/core";
+import ForgotPassword from "../../components/ForgotPassword";
 
 const validationSchema = yup.object({
   email: yup
@@ -50,9 +55,23 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  paperWrapper: {
+    position: "absolute",
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    top: "50%",
+    left: "50%",
+    maxHeight: "80vh",
+    transform: "translate(-50%, -50%)",
+    overflow: "auto",
+    "&:focus": {
+      outline: "none",
+    },
+  },
 }));
 
 const Login = () => {
+  const [isForgotModalOpen, setIsForgotModalOpen] = useState(false);
   const classes = useStyles();
   const history = useHistory();
   const { isAuthenticated } = useSelector(selectAuth);
@@ -84,6 +103,10 @@ const Login = () => {
         });
     },
   });
+
+  const toggleForgotPasswordModal = () => {
+    setIsForgotModalOpen(!isForgotModalOpen);
+  };
 
   if (isAuthenticated) return <Redirect to={URL_DASHBOARD} />;
 
@@ -121,6 +144,22 @@ const Login = () => {
             />
           </Grid>
           <Grid item xs={12}>
+            <Box display="flex" justifyContent="flex-end">
+              <Button
+                variant="text"
+                disableRipple
+                disableFocusRipple
+                disableElevation
+                color={"primary"}
+                onClick={toggleForgotPasswordModal}
+                style={{
+                  textTransform: "capitalize",
+                  backgroundColor: "transparent",
+                }}
+              >
+                Şifremi Unuttum
+              </Button>
+            </Box>
             <TextField
               variant="outlined"
               required
@@ -176,6 +215,21 @@ const Login = () => {
           {"."}
         </Typography>
       </Box>
+      <Modal
+        open={isForgotModalOpen}
+        onClose={toggleForgotPasswordModal}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div className={classes.paperWrapper}>
+          <Box display="flex" justifyContent="flex-end">
+            <IconButton onClick={toggleForgotPasswordModal}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          <ForgotPassword />
+        </div>
+      </Modal>
     </Container>
   );
 };

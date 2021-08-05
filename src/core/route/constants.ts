@@ -2,6 +2,7 @@ export const URL_DASHBOARD = "/";
 
 export const URL_LOGIN = "/login";
 export const URL_REGISTER = "/register";
+export const URL_RESET_PASSWORD = "/reset-password/:token";
 export const URL_KVKK = "/kvkk";
 
 export const URL_MY_EXAMS = "/my-exams";

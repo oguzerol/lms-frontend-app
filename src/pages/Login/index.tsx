@@ -56,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   paperWrapper: {
+    [theme.breakpoints.down("xs")]: {
+      width: "85vw",
+    },
     position: "absolute",
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
@@ -86,7 +89,7 @@ const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values, { setErrors }) => {
-      axios
+      await axios
         .post(API_LOGIN, {
           email: values.email,
           password: values.password,

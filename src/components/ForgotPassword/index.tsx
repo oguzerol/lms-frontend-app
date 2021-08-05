@@ -61,9 +61,8 @@ const ForgotPassword = () => {
       api: "",
     },
     validationSchema: validationSchema,
-    onSubmit: async (values, { setErrors }) => {
-      console.log(values);
-      axios
+    onSubmit: async (values, { setErrors, setSubmitting }) => {
+      await axios
         .post(API_FORGOT_PASSWORD, {
           email: values.email,
         })
@@ -72,6 +71,9 @@ const ForgotPassword = () => {
         })
         .catch((err: any) => {
           setErrors({ api: err.response.data.message });
+        })
+        .finally(() => {
+          setSubmitting(false);
         });
     },
   });

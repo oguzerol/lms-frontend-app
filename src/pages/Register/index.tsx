@@ -70,6 +70,9 @@ const useStyles = makeStyles((theme) => ({
     "&:focus": {
       outline: "none",
     },
+    [theme.breakpoints.down("xs")]: {
+      width: "85vw",
+    },
   },
 }));
 
@@ -92,7 +95,7 @@ const Register = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values, { setErrors }) => {
-      axios
+      await axios
         .post(API_REGISTER, {
           email: values.email,
         })

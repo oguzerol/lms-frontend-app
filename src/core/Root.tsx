@@ -18,6 +18,7 @@ import {
   URL_EXAMS,
   URL_RESULTS,
   URL_KVKK,
+  URL_RESET_PASSWORD,
 } from "./route/constants";
 import { selectTheme } from "./redux/slices/theme";
 import { SocketProvider } from "./contexts/socket";
@@ -25,6 +26,7 @@ import { SocketProvider } from "./contexts/socket";
 import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import ResetPassword from "../pages/ResetPassword";
 import NotFound from "../pages/NotFound";
 import MyExams from "../pages/MyExams";
 import Exam from "../pages/Exam";
@@ -33,9 +35,9 @@ import ExamLayout from "./layouts/ExamLayout";
 import ResultLayout from "./layouts/ResultLayout";
 import Results from "../pages/Results";
 import Products from "../pages/Exams";
+import KVKK from "../pages/KVKK";
 
 import "../assets/fonts.css";
-import KVKK from "../pages/KVKK";
 
 const queryClient = new QueryClient();
 
@@ -93,8 +95,9 @@ const Root = () => {
               />
 
               <AppRoute path={URL_LOGIN} component={Login} />
-              <AppRoute path={URL_KVKK} component={KVKK} />
               <AppRoute path={URL_REGISTER} component={Register} />
+              <AppRoute path={URL_RESET_PASSWORD} component={ResetPassword} />
+              <AppRoute path={URL_KVKK} component={KVKK} />
               <AppRoute path={`*`} component={NotFound} privateRoute />
             </Switch>
           </Router>
